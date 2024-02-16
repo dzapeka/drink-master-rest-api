@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/dzapeka/drink-master-rest-api#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.4",
