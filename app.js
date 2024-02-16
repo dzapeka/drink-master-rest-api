@@ -2,7 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
 
-const routes = require('./routes');
+const router = require('./routes/index');
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
 
-app.use('/api', routes);
+app.use('/api', router);
 
 app.use((req, res) => {
   res.status(404).json({
