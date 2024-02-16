@@ -1,7 +1,7 @@
 const express = require('express');
 
 const authRouter = require('./auth');
-const filterRouter = require('../routes/filters');
+const filterRouter = require('./filters');
 
 const router = express.Router();
 
