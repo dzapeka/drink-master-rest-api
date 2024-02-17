@@ -10,7 +10,10 @@
     }
   },
   "servers": [
-    { "url": "http://localhost:3000/api", "description": "Local server" },
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Local server"
+    },
     {
       "url": "https://drink-master-api-umd0.onrender.com/api",
       "description": "Render server"
@@ -20,12 +23,18 @@
     {
       "name": "Auth",
       "description": "Authorization endpoints"
+    },
+    {
+      "name": "Filters",
+      "description": "Filters endpoints"
     }
   ],
   "paths": {
     "/auth/signup": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Register User",
         "parameters": [],
         "requestBody": {
@@ -75,7 +84,9 @@
     },
     "/auth/signin": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Log In User",
         "parameters": [],
         "requestBody": {
@@ -125,9 +136,15 @@
     },
     "/auth/signout": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Log Out User",
-        "security": [{ "BearerAuth": [] }],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "No Content: Successful sign out. Access token is invalidated"
@@ -144,13 +161,78 @@
           }
         }
       }
+    },
+    "/filters/categories": {
+      "get": {
+        "tags": [
+          "Filters"
+        ],
+        "summary": "Returns all categories",
+        "responses": {
+          "200": {
+            "description": "Array of categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/filters/ingredients": {
+      "get": {
+        "tags": [
+          "Filters"
+        ],
+        "summary": "Returns all ingredients",
+        "responses": {
+          "200": {
+            "description": "Array of ingredients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngredientsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/filters/glasses": {
+      "get": {
+        "tags": [
+          "Filters"
+        ],
+        "summary": "Returns all glasses",
+        "responses": {
+          "200": {
+            "description": "Array of glasses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlassesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
       "UserRegistrationRequest": {
         "type": "object",
-        "required": ["name", "email", "password", "dateOfBirth"],
+        "required": [
+          "name",
+          "email",
+          "password",
+          "dateOfBirth"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -200,7 +282,10 @@
       },
       "UserLoginRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -232,6 +317,152 @@
             "dateOfBirth": "2000-01-25"
           }
         }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65ce24347742e57091247921",
+            "format": "mongo-id"
+          },
+          "category": {
+            "type": "string",
+            "example": "Beer"
+          }
+        }
+      },
+      "CategoriesResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Category"
+        },
+        "example": [
+          {
+            "_id": "65ce24347742e57091247921",
+            "category": "Beer"
+          },
+          {
+            "_id": "65ce24347742e57091247922",
+            "category": "Soft Drink"
+          }
+        ]
+      },
+      "Ingredient": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "64f1d5c169d8333cf130fb4d"
+          },
+          "ingredientThumb": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://ftp.goit.study/img/drinkify/ingredients/Ice.png"
+          },
+          "thumb-medium": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://ftp.goit.study/img/drinkify/ingredients/Ice-Medium.png"
+          },
+          "thumb-small": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://ftp.goit.study/img/drinkify/ingredients/Ice-Small.png"
+          },
+          "title": {
+            "type": "string",
+            "example": "Ice"
+          },
+          "description": {
+            "type": "string",
+            "example": "Ice is water frozen into a solid state."
+          },
+          "type": {
+            "type": "string",
+            "example": "Solid"
+          },
+          "alcohol": {
+            "type": "string",
+            "example": "No"
+          },
+          "abv": {
+            "type": "number",
+            "example": 0
+          },
+          "flavour": {
+            "type": "string",
+            "example": "Neutral"
+          },
+          "country": {
+            "type": "string",
+            "example": "Various"
+          }
+        }
+      },
+      "IngredientsResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Ingredient"
+        },
+        "example": [
+          {
+            "_id": "64f1d5c169d8333cf130fb4d",
+            "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Ice.png",
+            "thumb-medium": "https://ftp.goit.study/img/drinkify/ingredients/Ice-Medium.png",
+            "thumb-small": "https://ftp.goit.study/img/drinkify/ingredients/Ice-Small.png",
+            "title": "Ice",
+            "description": "Ice is water frozen into a solid state.",
+            "type": "Solid",
+            "alcohol": "No",
+            "abv": 0,
+            "flavour": "Neutral",
+            "country": "Various"
+          },
+          {
+            "_id": "64f1d5c669d8333cf130fbb4",
+            "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Pineapple.png",
+            "thumb-medium": "https://ftp.goit.study/img/drinkify/ingredients/Pineapple-Medium.png",
+            "thumb-small": "https://ftp.goit.study/img/drinkify/ingredients/Pineapple-Small.png",
+            "title": "Pineapple",
+            "description": "The pineapple (Ananas comosus) is a tropical plant",
+            "type": "Fruit",
+            "alcohol": "No",
+            "abv": 0,
+            "flavour": "Sweet, Tart",
+            "country": "Global(Tropical Regions)"
+          }
+        ]
+      },
+      "Glass": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65ce2dae7742e57091247939",
+            "format": "mongo-id"
+          },
+          "glass": {
+            "type": "string",
+            "example": "Pint glass"
+          }
+        }
+      },
+      "GlassesResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Glass"
+        },
+        "example": [
+          {
+            "_id": "65ce2dae7742e57091247939",
+            "glass": "Pint glass"
+          },
+          {
+            "_id": "65ce2dae7742e57091247933",
+            "glass": "Coffee mug"
+          }
+        ]
       }
     },
     "securitySchemes": {
