@@ -3,28 +3,23 @@ const {
   userLoginSchema,
 } = require('../validations/userValidation');
 
-function validateUserRegistration(req, res, next) {
-  const { error } = userRegistrationSchema.validate(req.body, {
-    abortEarly: false,
-  });
-  if (error) {
-    return res
-      .status(400)
-      .send(error.details.map(err => err.message).join(', '));
-  }
-  next();
+function validateSchema(schema) {
+  return function (req, res, next) {
+    const { error } = schema.validate(req.body, {
+      abortEarly: false,
+    });
+    if (error) {
+      return res.status(400).json({
+        message: error.details
+          .map(err => err.message.replaceAll('"', ''))
+          .join(', '),
+      });
+    }
+    next();
+  };
 }
 
-function validateUserLogin(req, res, next) {
-  const { error } = userLoginSchema.validate(req.body, {
-    abortEarly: false,
-  });
-  if (error) {
-    return res
-      .status(400)
-      .send(error.details.map(err => err.message).join(', '));
-  }
-  next();
-}
+const validateUserRegistration = validateSchema(userRegistrationSchema);
+const validateUserLogin = validateSchema(userLoginSchema);
 
 module.exports = { validateUserRegistration, validateUserLogin };

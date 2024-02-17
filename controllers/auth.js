@@ -8,7 +8,7 @@ const register = async (req, res, next) => {
   try {
     const user = await User.findOne({ email });
     if (user !== null) {
-      return res.status(409).send({ message: 'Email in use' });
+      return res.status(409).send({ message: 'Email already in use' });
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
