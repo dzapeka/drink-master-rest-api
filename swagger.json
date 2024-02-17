@@ -10,7 +10,11 @@
     }
   },
   "servers": [
-    { "url": "http://localhost:3000/api", "description": "Local server" }
+    { "url": "http://localhost:3000/api", "description": "Local server" },
+    {
+      "url": "https://drink-master-api-umd0.onrender.com/api",
+      "description": "Render server"
+    }
   ],
   "tags": [
     {
