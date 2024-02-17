@@ -1,8 +1,3 @@
-const {
-  userRegistrationSchema,
-  userLoginSchema,
-} = require('../validations/userValidation');
-
 function validateSchema(schema) {
   return function (req, res, next) {
     const { error } = schema.validate(req.body, {
@@ -19,7 +14,4 @@ function validateSchema(schema) {
   };
 }
 
-const validateUserRegistration = validateSchema(userRegistrationSchema);
-const validateUserLogin = validateSchema(userLoginSchema);
-
-module.exports = { validateUserRegistration, validateUserLogin };
+module.exports = validateSchema;
