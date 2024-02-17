@@ -1,0 +1,245 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Drink Master API",
+    "description": "This is the Drink Master server",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    { "url": "http://localhost:3000/api", "description": "Local server" },
+    {
+      "url": "https://drink-master-api-umd0.onrender.com/api",
+      "description": "Render server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    }
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register User",
+        "parameters": [],
+        "requestBody": {
+          "description": "User object for registration",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK: Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: Invalid request body or missing required parameters",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "name is required, email is required, password is required, dateOfBirth is required"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "409 Conflict: Provided email already exists",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Email already in use"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Log In User",
+        "parameters": [],
+        "requestBody": {
+          "description": "Authenticate users and obtain access tokens",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK: Successful login. Returns an access token in the response body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: Invalid request body or missing required parameters",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "email is required, password is required"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Authentication failed due to invalid credentials",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Email or password is wrong"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Log Out User",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "204": {
+            "description": "No Content: Successful sign out. Access token is invalidated"
+          },
+          "401": {
+            "description": "Unauthorized: Authentication failed due to invalid token",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserRegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password", "dateOfBirth"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Davy Jones"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 3,
+            "example": "qwerty123"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "example": "2000-01-25"
+          }
+        }
+      },
+      "UserRegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Davy Jones"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@example.com"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "example": "2000-01-25"
+          }
+        },
+        "example": {
+          "user": {
+            "name": "Davy Jones",
+            "email": "user@example.com",
+            "dateOfBirth": "2000-01-25"
+          }
+        }
+      },
+      "UserLoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 3,
+            "example": "qwerty123"
+          }
+        }
+      },
+      "UserLoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserRegistrationResponse"
+          }
+        },
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Y2ViMDA3ODRjYTY2ZjlmM2EyYWQ1OCIsIm5hbWUiOiJEYXZ5IEpvbmVzIiwiaWF0IjoxNzA4MTMzODAzLCJleHAiOjE3MDk5NDgyMDN9.8L6Vtof4Ile2m78u-OeFZouX9FkAG2GYP2ryNNqb408",
+          "user": {
+            "name": "Davy Jones",
+            "email": "user@example.com",
+            "dateOfBirth": "2000-01-25"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
