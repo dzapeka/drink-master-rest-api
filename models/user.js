@@ -28,6 +28,7 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    subscriptionEmails: [String],
   },
   {
     versionKey: false,
