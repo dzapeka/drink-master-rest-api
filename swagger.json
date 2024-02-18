@@ -168,6 +168,11 @@
           "Filters"
         ],
         "summary": "Returns all categories",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of categories",
@@ -175,6 +180,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CategoriesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
                 }
               }
             }
@@ -188,6 +203,11 @@
           "Filters"
         ],
         "summary": "Returns all ingredients",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of ingredients",
@@ -195,6 +215,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IngredientsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
                 }
               }
             }
@@ -208,6 +238,11 @@
           "Filters"
         ],
         "summary": "Returns all glasses",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of glasses",
@@ -215,6 +250,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GlassesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
                 }
               }
             }
