@@ -1,7 +1,8 @@
 const Drink = require('../models/drink');
 const Category = require('../models/category');
 const User = require('../models/user');
-const getUserAge = require('../helpers/getUserAge');
+const getUserAge = require('../utils/getUserAge');
+const { getRandomElementsFromArray } = require('../utils/arrayUtils');
 
 const getRandomDrinks = async (req, res, next) => {
   let { drinksPerCategory } = req.query;
@@ -25,15 +26,20 @@ const getRandomDrinks = async (req, res, next) => {
       matchCondition = { alcoholic: 'Non alcoholic' };
     }
 
-    const categoriesWithDrinks = await Promise.all(
+    let categoriesWithDrinks = await Promise.all(
       categories.map(async category => {
         const drinks = await Drink.aggregate([
           { $match: { category: category.category, ...matchCondition } },
           { $sample: { size: drinksPerCategory } },
         ]);
-        return { category: category.category, drinks };
+
+        if (drinks.length >= drinksPerCategory) {
+          return { category: category.category, drinks };
+        }
       })
-    );
+    ).then(results => results.filter(item => item));
+
+    categoriesWithDrinks = getRandomElementsFromArray(categoriesWithDrinks, 4);
 
     return res.status(200).json(categoriesWithDrinks);
   } catch (error) {
