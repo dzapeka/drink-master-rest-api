@@ -2,14 +2,14 @@ const express = require('express');
 
 const authRouter = require('./auth');
 const filterRouter = require('./filters');
-const usersRouter = require('./users');
+const drinkRouter = require('./drinks');
+
+const authMidelware = require('../middlewares/auth');
 
 const router = express.Router();
 
-const authMiddleware = require('../middlewares/auth');
-
 router.use('/auth', authRouter);
-router.use('/filters', authMiddleware, filterRouter);
-router.use('/users', authMiddleware, usersRouter);
+router.use('/filters', authMidelware, filterRouter);
+router.use('/drinks', authMidelware, drinkRouter);
 
 module.exports = router;
