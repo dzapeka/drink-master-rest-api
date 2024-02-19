@@ -4,12 +4,15 @@ const authRouter = require('./auth');
 const filterRouter = require('./filters');
 const drinkRouter = require('./drinks');
 
-const authMidelware = require('../middlewares/auth');
+const authMiddleware = require('../middlewares/auth');
 
 const router = express.Router();
+router.get('/', (req, res) => {
+  res.sendFile('./public/index.html');
+});
 
 router.use('/auth', authRouter);
-router.use('/filters', authMidelware, filterRouter);
-router.use('/drinks', authMidelware, drinkRouter);
+router.use('/filters', authMiddleware, filterRouter);
+router.use('/drinks', authMiddleware, drinkRouter);
 
 module.exports = router;
