@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const drinkSchema = new mongoose.Schema({
+const drinkSchema = new Schema({
   drink: { type: String },
   drinkAlternate: { type: String },
   tags: { type: String },
@@ -23,10 +24,10 @@ const drinkSchema = new mongoose.Schema({
     {
       title: { type: String },
       measure: { type: String },
-      ingredientId: { type: mongoose.Schema.Types.ObjectId },
+      ingredientId: { type: Schema.Types.ObjectId, ref: 'Ingredient' },
     },
   ],
   shortDescription: { type: String },
 });
 
-module.exports = mongoose.model('Cocktail', drinkSchema);
+module.exports = mongoose.model('Drink', drinkSchema);

@@ -600,6 +600,111 @@
           }
         }
       }
+    },
+    "/drinks/search":{
+      "get":{
+        "summary":"Search drinks",
+        "description":"Returns a list of drinks based on search parameters",
+        "tags": [
+          "Drinks"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters":[
+          {
+            "name":"name",
+            "in":"query",
+            "description":"Name of the drink",
+            "required":false,
+            "schema":{
+              "type":"string"
+            }
+          },
+          {
+            "name":"category",
+            "in":"query",
+            "description":"Category of the drink",
+            "required":false,
+            "schema":{
+              "type":"string"
+            }
+          },
+          {
+            "name":"ingredient",
+            "in":"query",
+            "description":"The ingredient the drink should have",
+            "required":false,
+            "schema":{
+              "type":"string"
+            }
+          },
+          {
+            "name":"page",
+            "in":"query",
+            "description":"Page number",
+            "required":false,
+            "schema":{
+              "type":"integer",
+              "default":1
+            }
+          },
+          {
+            "name":"size",
+            "in":"query",
+            "description":"Number of items per page",
+            "required":false,
+            "schema":{
+              "type":"integer",
+              "default":10
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"Successful operation",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "totalPages":{
+                      "type":"integer"
+                    },
+                    "currentPage":{
+                      "type":"integer"
+                    },
+                    "drinks":{
+                      "type":"array",
+                      "items":{
+                        "$ref":"#/components/schemas/Drink"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404":{
+            "description":"No drinks found",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string",
+                      "example": "No drinks found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

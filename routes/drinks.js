@@ -1,8 +1,9 @@
 const express = require('express');
-const { getRandomDrinks } = require('../controllers/drink');
+const drinkController = require('../controllers/drink');
 
 const router = express.Router();
 
-router.get('/mainpage', getRandomDrinks);
+router.get('/mainpage', drinkController.getRandomDrinks);
+router.get('/search', drinkController.search);
 
 module.exports = router;

@@ -47,4 +47,31 @@ const getRandomDrinks = async (req, res, next) => {
   }
 };
 
-module.exports = { getRandomDrinks };
+const search = async (req, res, next) => {
+  try {
+    const { name, category, ingredient, page = 1, size = 10 } = req.query;
+    const filter = {};
+    if (name) filter.drink = { $regex: name, $options: 'i' };
+    if (category) filter.category = category;
+    if (ingredient) filter.ingredients = { $elemMatch: { title: ingredient } };
+
+    const drinks = await Drink.find(filter)
+      .skip((page - 1) * size)
+      .limit(Number(size));
+
+    if (drinks.length === 0) {
+      return res.status(404).json({ message: 'No drinks found' });
+    }
+    const total = await Drink.countDocuments(filter);
+
+    res.json({
+      totalPages: Math.ceil(total / size),
+      currentPage: page,
+      drinks,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getRandomDrinks, search };
