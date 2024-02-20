@@ -13,7 +13,7 @@ const getCategories = async (req, res, next) => {
     }
     res.status(200).send(data);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -26,7 +26,7 @@ const getIngredients = async (req, res, next) => {
     }
     res.status(200).send(data);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -39,7 +39,7 @@ const getGlasses = async (req, res, next) => {
     }
     res.status(200).send(data);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
