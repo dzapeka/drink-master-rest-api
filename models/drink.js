@@ -28,6 +28,7 @@ const drinkSchema = new Schema({
     },
   ],
   shortDescription: { type: String },
+  ownerIds: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
 });
 
 module.exports = mongoose.model('Drink', drinkSchema);
