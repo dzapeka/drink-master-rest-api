@@ -4,7 +4,7 @@ const getFavoriteDrinks = async (req, res, next) => {
   try {
     const userId = req.user.id;
 
-    const favoriteDrinks = await Drink.find({ ownerIds: userId });
+    const favoriteDrinks = await Drink.find({ favoritedBy: userId });
 
     if (favoriteDrinks === null) {
       return res.status(404).json({ message: 'Favorites drinks not found' });
@@ -31,8 +31,7 @@ const addToFavoriteDrinks = async (req, res, next) => {
         .json({ message: 'Incorrectly entered data. Cocktail id is expected' });
     }
 
-    const ownerlist = (await Drink.findById(drinkId)).ownerIds;
-
+    const ownerlist = (await Drink.findById(drinkId)).favoritedBy;
     if (ownerlist.includes(userId)) {
       return res.status(409).send({
         message: 'User already has the cocktail.',
@@ -44,7 +43,7 @@ const addToFavoriteDrinks = async (req, res, next) => {
     const updatedFavoriteDrinks = await Drink.findByIdAndUpdate(
       drinkId,
       {
-        ownerIds: ownerlist,
+        favoritedBy: ownerlist,
       },
       { new: true }
     );
@@ -75,7 +74,7 @@ const removeFromFavorite = async (req, res, next) => {
 
     const drink = await Drink.findById(drinkId);
 
-    const isInFavoriteDrinks = drink.ownerIds.includes(userId);
+    const isInFavoriteDrinks = drink.favoritedBy.includes(userId);
 
     if (!isInFavoriteDrinks) {
       return res.status(403).json({
@@ -84,13 +83,13 @@ const removeFromFavorite = async (req, res, next) => {
       });
     }
 
-    const updatedOwnerList = drink.ownerIds.filter(
+    const updatedOwnerList = drink.favoritedBy.filter(
       id => id.toString() !== userId
     );
 
     const deletedDrink = await Drink.findByIdAndUpdate(
       drinkId,
-      { ownerIds: updatedOwnerList },
+      { favoritedBy: updatedOwnerList },
       { new: false }
     );
 
