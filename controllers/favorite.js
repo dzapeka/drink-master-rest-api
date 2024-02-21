@@ -40,20 +40,17 @@ const addToFavoriteDrinks = async (req, res, next) => {
       });
     }
 
-    const ownerlist = (await Drink.findById(drinkId)).favoritedBy;
-    if (ownerlist.includes(userId)) {
+    const userIds = (await Drink.findById(drinkId)).favoritedBy;
+
+    if (userIds.includes(userId)) {
       return res.status(409).send({
-        message: 'User already has the cocktail.',
+        message: 'The cocktail is already added to favorites',
       });
     }
 
-    ownerlist.push(userId);
-
     const updatedFavoriteDrinks = await Drink.findByIdAndUpdate(
       drinkId,
-      {
-        favoritedBy: ownerlist,
-      },
+      { $push: { favoritedBy: userId } },
       { new: true }
     );
 
@@ -92,13 +89,9 @@ const removeFromFavorite = async (req, res, next) => {
       });
     }
 
-    const updatedOwnerList = drink.favoritedBy.filter(
-      id => id.toString() !== userId
-    );
-
     const deletedDrink = await Drink.findByIdAndUpdate(
       drinkId,
-      { favoritedBy: updatedOwnerList },
+      { $pull: { favoritedBy: userId } },
       { new: false }
     );
 
@@ -107,7 +100,7 @@ const removeFromFavorite = async (req, res, next) => {
     }
 
     return res.status(200).json({
-      message: 'Cocktail successfully deleted.',
+      message: 'The cocktail was successfully removed',
       deletedDrink,
     });
   } catch (error) {
