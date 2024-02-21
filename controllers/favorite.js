@@ -1,4 +1,5 @@
 const Drink = require('../models/drink');
+const drinkIdSchema = require('../schemas/favoriteDrinkId');
 
 const getFavoriteDrinks = async (req, res, next) => {
   try {
@@ -25,10 +26,18 @@ const addToFavoriteDrinks = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const drinkId = req.body.drinkId;
-    if (drinkId === null) {
+
+    if (drinkId === null || typeof drinkId === 'undefined') {
       return res
         .status(400)
         .json({ message: 'Incorrectly entered data. Cocktail id is expected' });
+    }
+
+    const response = drinkIdSchema.validate({ drinkId }, { abortEarly: false });
+    if (typeof response.error !== 'undefined') {
+      return res.status(400).send({
+        message: response.error.details.map(err => err.message).join(', '),
+      });
     }
 
     const ownerlist = (await Drink.findById(drinkId)).favoritedBy;
