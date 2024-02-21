@@ -690,7 +690,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of the drink to be removed",
+            "description": "ID of the drink to be returned",
             "required": true,
             "schema": {
               "type": "string",
@@ -1016,7 +1016,7 @@
             "content": {
               "application/json": {
                 "example": {
-                  "message": "Favorites drinks not found"
+                  "message": "You don't have any favorite cocktails yet"
                 }
               }
             }
