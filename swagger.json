@@ -40,9 +40,7 @@
   "paths": {
     "/auth/signup": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Create a new user",
         "requestBody": {
           "required": true,
@@ -97,19 +95,14 @@
     },
     "/auth/signin": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Log In User",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "required": [
-                  "email",
-                  "password"
-                ],
+                "required": ["email", "password"],
                 "properties": {
                   "email": {
                     "type": "string",
@@ -178,9 +171,7 @@
     },
     "/auth/signout": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Log Out User",
         "security": [
           {
@@ -206,9 +197,7 @@
     },
     "/filters/categories": {
       "get": {
-        "tags": [
-          "Filters"
-        ],
+        "tags": ["Filters"],
         "summary": "Returns all categories",
         "security": [
           {
@@ -254,9 +243,7 @@
     },
     "/filters/ingredients": {
       "get": {
-        "tags": [
-          "Filters"
-        ],
+        "tags": ["Filters"],
         "summary": "Returns all ingredients",
         "security": [
           {
@@ -320,9 +307,7 @@
     },
     "/filters/glasses": {
       "get": {
-        "tags": [
-          "Filters"
-        ],
+        "tags": ["Filters"],
         "summary": "Returns all glasses",
         "security": [
           {
@@ -374,9 +359,7 @@
             "BearerAuth": []
           }
         ],
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "responses": {
           "200": {
             "description": "OK. Authenticated user's data",
@@ -402,18 +385,14 @@
             "BearerAuth": []
           }
         ],
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "description": "Allows a user to add an email to their subscription list",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "required": [
-                  "email"
-                ],
+                "required": ["email"],
                 "properties": {
                   "email": {
                     "type": "string",
@@ -445,9 +424,7 @@
       "patch": {
         "summary": "Update user information",
         "description": "Updates user information including avatar and name.",
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -464,10 +441,7 @@
                     "description": "User name"
                   }
                 },
-                "required": [
-                  "avatar",
-                  "name"
-                ]
+                "required": ["avatar", "name"]
               }
             }
           }
@@ -513,9 +487,7 @@
     },
     "/drinks/mainpage": {
       "get": {
-        "tags": [
-          "Drinks"
-        ],
+        "tags": ["Drinks"],
         "summary": "Returns popular categories and drinks",
         "security": [
           {
@@ -601,85 +573,83 @@
         }
       }
     },
-    "/drinks/search":{
-      "get":{
-        "summary":"Search drinks",
-        "description":"Returns a list of drinks based on search parameters",
-        "tags": [
-          "Drinks"
-        ],
+    "/drinks/search": {
+      "get": {
+        "summary": "Search drinks",
+        "description": "Returns a list of drinks based on search parameters",
+        "tags": ["Drinks"],
         "security": [
           {
             "BearerAuth": []
           }
         ],
-        "parameters":[
+        "parameters": [
           {
-            "name":"name",
-            "in":"query",
-            "description":"Name of the drink",
-            "required":false,
-            "schema":{
-              "type":"string"
+            "name": "name",
+            "in": "query",
+            "description": "Name of the drink",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "name":"category",
-            "in":"query",
-            "description":"Category of the drink",
-            "required":false,
-            "schema":{
-              "type":"string"
+            "name": "category",
+            "in": "query",
+            "description": "Category of the drink",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "name":"ingredient",
-            "in":"query",
-            "description":"The ingredient the drink should have",
-            "required":false,
-            "schema":{
-              "type":"string"
+            "name": "ingredient",
+            "in": "query",
+            "description": "The ingredient the drink should have",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "name":"page",
-            "in":"query",
-            "description":"Page number",
-            "required":false,
-            "schema":{
-              "type":"integer",
-              "default":1
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
             }
           },
           {
-            "name":"size",
-            "in":"query",
-            "description":"Number of items per page",
-            "required":false,
-            "schema":{
-              "type":"integer",
-              "default":10
+            "name": "size",
+            "in": "query",
+            "description": "Number of items per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
             }
           }
         ],
-        "responses":{
-          "200":{
-            "description":"Successful operation",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "type":"object",
-                  "properties":{
-                    "totalPages":{
-                      "type":"integer"
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "totalPages": {
+                      "type": "integer"
                     },
-                    "currentPage":{
-                      "type":"integer"
+                    "currentPage": {
+                      "type": "integer"
                     },
-                    "drinks":{
-                      "type":"array",
-                      "items":{
-                        "$ref":"#/components/schemas/Drink"
+                    "drinks": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Drink"
                       }
                     }
                   }
@@ -687,18 +657,379 @@
               }
             }
           },
-          "404":{
-            "description":"No drinks found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "type":"object",
-                  "properties":{
-                    "message":{
-                      "type":"string",
+          "404": {
+            "description": "No drinks found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
                       "example": "No drinks found"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drinks/favorite": {
+      "get": {
+        "tags": ["Drinks"],
+        "summary": "Returns favorite drink",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return list of favorite cocktails",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "items": {
+                      "$ref": "#/components/schemas/Drink"
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "_id": "639b6de9ff77d221f190c50f",
+                    "drink": "Quentin",
+                    "drinkAlternate": "Sorry, not specified",
+                    "tags": "IBA,ContemporaryClassic",
+                    "video": "https://www.youtube.com/watch?v=2jtoa_t7g94",
+                    "category": "Ordinary Drink",
+                    "IBA": "Contemporary Classics",
+                    "alcoholic": "Alcoholic",
+                    "glass": "Cocktail glass",
+                    "description": "Quentin is a refreshing cocktail that combines the flavors of citrus and mint. It is made with fresh lime juice, orange liqueur, and a touch of mint syrup. The drink is served over ice and garnished with a sprig of mint. It is the perfect beverage for a hot summer day.",
+                    "instructions": "In a shaker half-filled with ice cubes, combine the rum, Kahlua, and cream. Shake well. Strain into a cocktail glass and garnish with the nutmeg.",
+                    "instructionsES": "En una coctelera llena hasta la mitad con cubitos de hielo, combine el ron, Kahlua y la crema. Agite bien. Colar en una copa de cóctel y decorar con la nuez moscada.",
+                    "instructionsDE": "In einem Shaker, der halb mit Eiswürfeln gefüllt ist, Rum, Kahlua und Sahne mischen. Gut schütteln. In ein Cocktailglas abseihen und mit der Muskatnuss garnieren.",
+                    "instructionsFR": "Dans un shaker à moitié rempli de glaçons, mélanger le rhum, le Kahlua et la crème. Bien agiter. Versez dans un verre à cocktail et décorez avec la noix de muscade.",
+                    "instructionsIT": "In uno shaker riempito a metà con cubetti di ghiaccio, unire il rum, il Kahlua e la panna. Filtrare in una coppetta da cocktail e guarnire con la noce moscata. Agitare bene.",
+                    "instructionsRU": "В шейкере, наполовину наполненном кубиками льда, смешайте ром, Калуа и сливки. Хорошо встряхнуть. Процедите в коктейльный бокал и украсьте мускатным орехом.",
+                    "instructionsPL": "W shakerze wypełnionym do połowy kostkami lodu wymieszać rum, Kahlua i śmietanę. Dobrze wstrząsnąć. Przelej do kieliszka koktajlowego i udekoruj gałką muszkatołową.",
+                    "instructionsUK": "У шейкері, наповненому наполовину кубиками льоду, змішайте ром, Калуа та вершки. Добре струсити. Процідіть у келих для коктейлю та прикрасьте мускатним горіхом.",
+                    "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg",
+                    "ingredients": [
+                      {
+                        "_id": "65d4d9b8549fccc862c2a151",
+                        "title": "Dark rum",
+                        "measure": "1 1/2 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4a7"
+                      },
+                      {
+                        "_id": "65d4d9b8549fccc862c2a152",
+                        "title": "Kahlua",
+                        "measure": "1/2 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4bd"
+                      },
+                      {
+                        "_id": "65d4d9b8549fccc862c2a153",
+                        "title": "Light cream",
+                        "measure": "1 oz ",
+                        "ingredientId": "64f1d5c069d8333cf130fb31"
+                      },
+                      {
+                        "_id": "65d4d9b8549fccc862c2a154",
+                        "title": "Nutmeg",
+                        "measure": "1/8 tsp grated ",
+                        "ingredientId": "64f1d5c069d8333cf130fb34"
+                      }
+                    ],
+                    "shortDescription": "A refreshing and citrusy cocktail with a hint of mint.",
+                    "ownerIds": ["65d0dcb810d121a004b9d440"]
+                  },
+                  {
+                    "_id": "639b6de9ff77d221f190c508",
+                    "drink": "Irish Coffee",
+                    "drinkAlternate": "Sorry, not specified",
+                    "tags": "IBA,ContemporaryClassic",
+                    "video": "https://youtu.be/9xwtCHELxMA?si=j9qrBEoFTqqgPVCr",
+                    "category": "Coffee / Tea",
+                    "IBA": "Contemporary Classics",
+                    "alcoholic": "Alcoholic",
+                    "glass": "Irish coffee cup",
+                    "description": "Irish Coffee is a classic hot cocktail that combines the richness of coffee with the smoothness of Irish whiskey. It is made by pouring hot coffee into a glass, adding a shot of Irish whiskey, and topping it off with a dollop of whipped cream. The warmth of the drink and the sweetness of the cream make it a comforting and indulgent treat.",
+                    "instructions": "Heat the coffee, whiskey and sugar; do not boil. Pour into glass and top with cream; serve hot.",
+                    "instructionsES": "Calienta el café, el whisky y el azúcar; no hierva. Vierta en un vaso y cubra con crema; servir caliente.",
+                    "instructionsDE": "Kaffee, Whiskey und Zucker erhitzen; nicht kochen lassen. In ein Glas geben und mit Sahne übergießen; heiß servieren.",
+                    "instructionsFR": "Faire chauffer le café, le whisky et le sucre ; ne pas faire bouillir. Verser dans un verre et garnir de crème; Servir chaud.",
+                    "instructionsIT": "Riscaldare il caffè, il whisky e lo zucchero; non bollire. Versare nel bicchiere e ricoprire con la panna; servito caldo.",
+                    "instructionsRU": "Нагрейте кофе, виски и сахар; не кипятить. Перелейте в стакан и украсьте сливками; подавать горячим.",
+                    "instructionsPL": "Podgrzej kawę, whisky i cukier; nie gotuj. Wlać do szklanki i posypać śmietaną; podawać na gorąco.",
+                    "instructionsUK": "Розігріти каву, віскі і цукор; не кип'ятити. Перелити в келих і зверху полити кремом; подавати гарячим.",
+                    "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Irish_Coffee.jpg",
+                    "ingredients": [
+                      {
+                        "_id": "65d4d9b8549fccc862c2a155",
+                        "title": "Irish whiskey",
+                        "measure": "1 1/2 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4c2"
+                      },
+                      {
+                        "_id": "65d4d9b8549fccc862c2a156",
+                        "title": "Coffee",
+                        "measure": "8 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4e7"
+                      },
+                      {
+                        "_id": "65d4d9b8549fccc862c2a157",
+                        "title": "Sugar",
+                        "measure": "1 tsp ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4bc"
+                      },
+                      {
+                        "_id": "65d4d9b8549fccc862c2a158",
+                        "title": "Whipped cream",
+                        "measure": "1 tblsp ",
+                        "ingredientId": "64f1d5c069d8333cf130fb38"
+                      }
+                    ],
+                    "shortDescription": "A classic hot cocktail with coffee, Irish whiskey, and whipped cream.",
+                    "ownerIds": ["65d0dcb810d121a004b9d440"]
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "No drinks were found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Favorites drinks not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drinks/favorite/add": {
+      "get": {
+        "tags": ["Drinks"],
+        "summary": "Adds cocktails to the user's favorite drinks",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The cocktail was added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "addedDrink": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Drink"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Successfully added to your favorite cocktails",
+                  "addedDrink": {
+                    "_id": "639b6de9ff77d221f190c56d",
+                    "drink": "Daiquiri",
+                    "drinkAlternate": "Sorry, not specified",
+                    "tags": "IBA,Classic,Beach",
+                    "video": "Sorry, not specified",
+                    "category": "Ordinary Drink",
+                    "IBA": "Sorry, not specified",
+                    "alcoholic": "Alcoholic",
+                    "glass": "Cocktail glass",
+                    "description": "Daiquiri is a classic and refreshing cocktail that has stood the test of time. It is made with rum, lime juice, and simple syrup. The combination of tart lime juice, smooth rum, and a touch of sweetness creates a well-balanced and delightful drink. Whether you prefer it shaken or frozen, the Daiquiri is a versatile and timeless choice for any occasion.",
+                    "instructions": "Pour all ingredients into shaker with ice cubes. Shake well. Strain in chilled cocktail glass.",
+                    "instructionsES": "Vierta todos los ingredientes en la coctelera con cubitos de hielo. Agite bien. Colar en copa de cóctel fría.",
+                    "instructionsDE": "Alle Zutaten in den Shaker mit Eiswürfel geben. Gut schütteln. In einem gekühlten Cocktailglas abseihen.",
+                    "instructionsFR": "Verser tous les ingrédients dans un shaker avec des glaçons. Bien agiter. Filtrer dans un verre à cocktail refroidi.",
+                    "instructionsIT": "Versare tutti gli ingredienti nello shaker con cubetti di ghiaccio.Filtrare in una coppetta da cocktail ghiacciata. Agitare bene",
+                    "instructionsRU": "Налейте все ингредиенты в шейкер с кубиками льда. Хорошо встряхнуть. Процедить в охлажденный коктейльный бокал.",
+                    "instructionsPL": "Wszystkie składniki wlej do shakera z kostkami lodu. Dobrze wstrząsnąć. Odcedź w schłodzonym kieliszku koktajlowym.",
+                    "instructionsUK": "Перелийте всі інгредієнти в шейкер з кубиками льоду. Добре струсити. Процідити в охолоджений коктейльний келих.",
+                    "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Daiquiri.jpg",
+                    "ingredients": [
+                      {
+                        "_id": "65d4e0e31f281d0db6e0b5d3",
+                        "title": "Light rum",
+                        "measure": "1 1/2 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4a4"
+                      },
+                      {
+                        "_id": "65d4e0e31f281d0db6e0b5d4",
+                        "title": "Lime",
+                        "measure": "Juice of 1/2 ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4db"
+                      },
+                      {
+                        "_id": "65d4e0e31f281d0db6e0b5d5",
+                        "title": "Powdered sugar",
+                        "measure": "1 tsp ",
+                        "ingredientId": "64f1d5c369d8333cf130fb78"
+                      }
+                    ],
+                    "shortDescription": "A classic and refreshing cocktail with rum, lime juice, and simple syrup.",
+                    "ownerIds": ["65d0dcb810d121a004b9d440"]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The information was entered incorrectly",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Incorrectly entered data. Cocktail id is expected"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The cocktail is already there",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "User already has the cocktail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cocktail not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Favorites drinks not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drinks/favorite/remove/:drinkId": {
+      "delete": {
+        "tags": ["Drinks"],
+        "summary": "Removes cocktails from the user's favorite drinks",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The cocktail was deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "deletedDrink": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Drink"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Cocktail successfully deleted.",
+                  "deletedDrink": {
+                    "_id": "639b6de9ff77d221f190c50f",
+                    "drink": "Quentin",
+                    "drinkAlternate": "Sorry, not specified",
+                    "tags": "IBA,ContemporaryClassic",
+                    "video": "https://www.youtube.com/watch?v=2jtoa_t7g94",
+                    "category": "Ordinary Drink",
+                    "IBA": "Contemporary Classics",
+                    "alcoholic": "Alcoholic",
+                    "glass": "Cocktail glass",
+                    "description": "Quentin is a refreshing cocktail that combines the flavors of citrus and mint. It is made with fresh lime juice, orange liqueur, and a touch of mint syrup. The drink is served over ice and garnished with a sprig of mint. It is the perfect beverage for a hot summer day.",
+                    "instructions": "In a shaker half-filled with ice cubes, combine the rum, Kahlua, and cream. Shake well. Strain into a cocktail glass and garnish with the nutmeg.",
+                    "instructionsES": "En una coctelera llena hasta la mitad con cubitos de hielo, combine el ron, Kahlua y la crema. Agite bien. Colar en una copa de cóctel y decorar con la nuez moscada.",
+                    "instructionsDE": "In einem Shaker, der halb mit Eiswürfeln gefüllt ist, Rum, Kahlua und Sahne mischen. Gut schütteln. In ein Cocktailglas abseihen und mit der Muskatnuss garnieren.",
+                    "instructionsFR": "Dans un shaker à moitié rempli de glaçons, mélanger le rhum, le Kahlua et la crème. Bien agiter. Versez dans un verre à cocktail et décorez avec la noix de muscade.",
+                    "instructionsIT": "In uno shaker riempito a metà con cubetti di ghiaccio, unire il rum, il Kahlua e la panna. Filtrare in una coppetta da cocktail e guarnire con la noce moscata. Agitare bene.",
+                    "instructionsRU": "В шейкере, наполовину наполненном кубиками льда, смешайте ром, Калуа и сливки. Хорошо встряхнуть. Процедите в коктейльный бокал и украсьте мускатным орехом.",
+                    "instructionsPL": "W shakerze wypełnionym do połowy kostkami lodu wymieszać rum, Kahlua i śmietanę. Dobrze wstrząsnąć. Przelej do kieliszka koktajlowego i udekoruj gałką muszkatołową.",
+                    "instructionsUK": "У шейкері, наповненому наполовину кубиками льоду, змішайте ром, Калуа та вершки. Добре струсити. Процідіть у келих для коктейлю та прикрасьте мускатним горіхом.",
+                    "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg",
+                    "ingredients": [
+                      {
+                        "_id": "65d4e55cd42a3b84b21bfc57",
+                        "title": "Dark rum",
+                        "measure": "1 1/2 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4a7"
+                      },
+                      {
+                        "_id": "65d4e55cd42a3b84b21bfc58",
+                        "title": "Kahlua",
+                        "measure": "1/2 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4bd"
+                      },
+                      {
+                        "_id": "65d4e55cd42a3b84b21bfc59",
+                        "title": "Light cream",
+                        "measure": "1 oz ",
+                        "ingredientId": "64f1d5c069d8333cf130fb31"
+                      },
+                      {
+                        "_id": "65d4e55cd42a3b84b21bfc5a",
+                        "title": "Nutmeg",
+                        "measure": "1/8 tsp grated ",
+                        "ingredientId": "64f1d5c069d8333cf130fb34"
+                      }
+                    ],
+                    "shortDescription": "A refreshing and citrusy cocktail with a hint of mint.",
+                    "ownerIds": ["65d0dcb810d121a004b9d440"]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The information was entered incorrectly",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Incorrectly entered data. Cocktail id is expected"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User has no cocktails with this id",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "The user does not have such a cocktail in his favorite cocktails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cocktail not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Favorites drinks not found"
                 }
               }
             }
@@ -711,12 +1042,7 @@
     "schemas": {
       "User": {
         "type": "object",
-        "required": [
-          "name",
-          "email",
-          "password",
-          "dateOfBirth"
-        ],
+        "required": ["name", "email", "password", "dateOfBirth"],
         "properties": {
           "_id": {
             "type": "string",

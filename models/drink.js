@@ -28,6 +28,7 @@ const drinkSchema = new Schema({
     },
   ],
   shortDescription: { type: String },
+  favoritedBy: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
 });
 
 module.exports = mongoose.model('Drink', drinkSchema);
