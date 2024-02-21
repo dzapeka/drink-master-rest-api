@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Drink = require('../models/drink');
 const Category = require('../models/category');
 const User = require('../models/user');
@@ -74,4 +75,41 @@ const search = async (req, res, next) => {
   }
 };
 
-module.exports = { getRandomDrinks, search };
+const getDrinkById = async (req, res, next) => {
+  try {
+    const drinkId = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(drinkId)) {
+      return res
+        .status(400)
+        .json({ message: 'Incorrectly entered data. Cocktail id is expected' });
+    }
+
+    const drinkData = await Drink.findOne({ _id: drinkId }).populate(
+      'ingredients.ingredientId'
+    );
+
+    if (drinkData === null) {
+      res.status(404).json({ message: 'Drink not found' });
+      return;
+    }
+
+    const modifiedIngredients = drinkData.ingredients.map(ingredient => ({
+      _id: ingredient._id,
+      title: ingredient.title,
+      measure: ingredient.measure,
+      ingredient: ingredient.ingredientId,
+    }));
+
+    const modifiedDrink = {
+      ...drinkData.toObject(),
+      ingredients: modifiedIngredients,
+    };
+
+    res.status(200).send(modifiedDrink);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getRandomDrinks, search, getDrinkById };
