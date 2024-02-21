@@ -112,4 +112,23 @@ const getDrinkById = async (req, res, next) => {
   }
 };
 
-module.exports = { getRandomDrinks, search, getDrinkById };
+const getPopularDrinks = async (req, res, next) => {
+  try {
+    const popularDrinks = await Drink.aggregate([
+      {
+        $project: {
+          _id: 1,
+          favoritedByCount: { $size: '$favoritedBy' },
+        },
+      },
+      {
+        $sort: { favoritedByCount: -1 },
+      },
+    ]);
+    res.send(popularDrinks);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getRandomDrinks, search, getDrinkById, getPopularDrinks };

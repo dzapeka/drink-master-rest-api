@@ -13,6 +13,7 @@ router.delete(
 
 router.get('/mainpage', drinkController.getRandomDrinks);
 router.get('/search', drinkController.search);
+router.get('/popular', drinkController.getPopularDrinks);
 router.get('/:id', drinkController.getDrinkById);
 
 module.exports = router;
