@@ -60,7 +60,6 @@ const addToFavoriteDrinks = async (req, res, next) => {
 
     return res.status(200).json({
       message: 'Successfully added to your favorite cocktails',
-      addedDrink: updatedFavoriteDrinks,
     });
   } catch (error) {
     next(error);
@@ -101,7 +100,6 @@ const removeFromFavorite = async (req, res, next) => {
 
     return res.status(200).json({
       message: 'The cocktail was successfully removed',
-      deletedDrink,
     });
   } catch (error) {
     next(error);
