@@ -676,7 +676,7 @@
         }
       }
     },
-    "/favorite": {
+    "/drinks/favorite": {
       "get": {
         "tags": ["Drinks"],
         "summary": "Returns favorite drink",
@@ -815,7 +815,7 @@
         }
       }
     },
-    "/favorite/add": {
+    "/drinks/favorite/add": {
       "get": {
         "tags": ["Drinks"],
         "summary": "Adds cocktails to the user's favorite drinks",
@@ -923,7 +923,7 @@
         }
       }
     },
-    "/favorite/remove/:drinkId": {
+    "/drinks/favorite/remove/:drinkId": {
       "delete": {
         "tags": ["Drinks"],
         "summary": "Removes cocktails from the user's favorite drinks",

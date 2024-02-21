@@ -1,7 +1,15 @@
 const express = require('express');
-const drinkController = require('../controllers/drink');
-
 const router = express.Router();
+
+const drinkController = require('../controllers/drink');
+const favoriteControler = require('../controllers/favorite');
+
+router.get('/favorite', favoriteControler.getFavoriteDrinks);
+router.post('/favorite/add', favoriteControler.addToFavoriteDrinks);
+router.delete(
+  '/favorite/remove/:drinkId',
+  favoriteControler.removeFromFavorite
+);
 
 router.get('/mainpage', drinkController.getRandomDrinks);
 router.get('/search', drinkController.search);
