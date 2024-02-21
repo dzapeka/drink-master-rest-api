@@ -676,6 +676,204 @@
         }
       }
     },
+    "/drinks/:id": {
+      "get": {
+        "tags": ["Drinks"],
+        "summary": "Returns cocktail by id",
+        "description": "Returns a cocktail with more detailed ingredients",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return list of favorite cocktails",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "drink": {
+                      "type": "string"
+                    },
+                    "drinkAlternate": {
+                      "type": "string"
+                    },
+                    "tags": {
+                      "type": "string"
+                    },
+                    "video": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "IBA": {
+                      "type": "string"
+                    },
+                    "alcoholic": {
+                      "type": "string"
+                    },
+                    "glass": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "instructions": {
+                      "type": "string"
+                    },
+                    "instructionsES": {
+                      "type": "string"
+                    },
+                    "instructionsDE": {
+                      "type": "string"
+                    },
+                    "instructionsFR": {
+                      "type": "string"
+                    },
+                    "instructionsIT": {
+                      "type": "string"
+                    },
+                    "instructionsRU": {
+                      "type": "string"
+                    },
+                    "instructionsPL": {
+                      "type": "string"
+                    },
+                    "instructionsUK": {
+                      "type": "string"
+                    },
+                    "drinkThumb": {
+                      "type": "string"
+                    },
+                    "ingredients": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Ingredient"
+                      }
+                    },
+                    "shortDescription": {
+                      "type": "string"
+                    }
+                  }
+                }
+                ,
+                "example": {
+                  "_id": "639b6de9ff77d221f190c508",
+                  "drink": "Irish Coffee",
+                  "drinkAlternate": "Sorry, not specified",
+                  "tags": "IBA,ContemporaryClassic",
+                  "video": "https://youtu.be/9xwtCHELxMA?si=j9qrBEoFTqqgPVCr",
+                  "category": "Coffee / Tea",
+                  "IBA": "Contemporary Classics",
+                  "alcoholic": "Alcoholic",
+                  "glass": "Irish coffee cup",
+                  "description": "Irish Coffee is a classic hot cocktail that combines the richness of coffee with the smoothness of Irish whiskey. It is made by pouring hot coffee into a glass, adding a shot of Irish whiskey, and topping it off with a dollop of whipped cream. The warmth of the drink and the sweetness of the cream make it a comforting and indulgent treat.",
+                  "instructions": "Heat the coffee, whiskey and sugar; do not boil. Pour into glass and top with cream; serve hot.",
+                  "instructionsES": "Calienta el café, el whisky y el azúcar; no hierva. Vierta en un vaso y cubra con crema; servir caliente.",
+                  "instructionsDE": "Kaffee, Whiskey und Zucker erhitzen; nicht kochen lassen. In ein Glas geben und mit Sahne übergießen; heiß servieren.",
+                  "instructionsFR": "Faire chauffer le café, le whisky et le sucre ; ne pas faire bouillir. Verser dans un verre et garnir de crème; Servir chaud.",
+                  "instructionsIT": "Riscaldare il caffè, il whisky e lo zucchero; non bollire. Versare nel bicchiere e ricoprire con la panna; servito caldo.",
+                  "instructionsRU": "Нагрейте кофе, виски и сахар; не кипятить. Перелейте в стакан и украсьте сливками; подавать горячим.",
+                  "instructionsPL": "Podgrzej kawę, whisky i cukier; nie gotuj. Wlać do szklanki i posypać śmietaną; podawać na gorąco.",
+                  "instructionsUK": "Розігріти каву, віскі і цукор; не кип'ятити. Перелити в келих і зверху полити кремом; подавати гарячим.",
+                  "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Irish_Coffee.jpg",
+                  "ingredients": [
+                    {
+                      "_id": "65d61ce7f7dfde16792f7541",
+                      "title": "Irish whiskey",
+                      "measure": "1 1/2 oz ",
+                      "ingredient": {
+                        "_id": "64aebb7f82d96cc69e0eb4c2",
+                        "title": "Irish whiskey",
+                        "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Irish_whiskey.png",
+                        "thumb-medium": "https://ftp.goit.study/img/drinkify/ingredients/Irish_whiskey-Medium.png",
+                        "thumb-small": "https://ftp.goit.study/img/drinkify/ingredients/Irish_whiskey-Small.png",
+                        "abv": 40,
+                        "alcohol": "Yes",
+                        "description": "Irish whiskey (Irish: Fuisce or uisce beatha) is whiskey made on the island of Ireland.\r\n\r\nThe word \"whiskey\"is an Anglicisation of the first word in the Gaelic phrase, uisce beatha, meaning \"water of life\"(modern Irish: uisce beatha, Scottish: uisge beatha and Manx: ushtey bea). The phrase was a translation of the Latin term aqua vitae, which was commonly used to describe distilled spirits during the Middle Ages.\r\n\r\nPeat is rarely used in the malting process, so that Irish whiskey has a smoother finish as opposed to the smoky, earthy overtones common to some Scotches. There are notable exceptions to these rules in both countries; an example is Connemara peated Irish malt (double distilled) whiskey from the Cooley Distillery in Riverstown, Cooley, County Louth.\r\n\r\nIrish whiskey was once the most popular spirit in the world, though a long period of decline from the late 19th century onwards greatly damaged the industry. So much so that although Ireland boasted over 30 distilleries in the 1890s, a century later, this number had fallen to just three. However, Irish whiskey has seen a great resurgence in popularity since the late twentieth century, and has been the fastest growing spirit in the world every year since 1990. With exports growing by over 15 per annum in recent years, existing distilleries have been expanded and a number of new distilleries constructed. As of early 2017, Ireland now has sixteen distilleries in operation, with at least a further fourteen in the planning stages.",
+                        "type": "Whiskey",
+                        "flavour": "grain",
+                        "country": "Ireland"
+                      }
+                    },
+                    {
+                      "_id": "65d61ce7f7dfde16792f7542",
+                      "title": "Coffee",
+                      "measure": "8 oz ",
+                      "ingredient": {
+                        "_id": "64aebb7f82d96cc69e0eb4e7",
+                        "title": "Coffee",
+                        "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Coffee.png",
+                        "thumb-medium": "https://ftp.goit.study/img/drinkify/ingredients/Coffee-Medium.png",
+                        "thumb-small": "https://ftp.goit.study/img/drinkify/ingredients/Coffee-Small.png",
+                        "abv": 0,
+                        "alcohol": "No",
+                        "description": "Coffee is a brewed drink prepared from roasted coffee beans, which are the seeds of berries from the Coffea plant. The genus Coffea is native to tropical Africa (specifically having its origin in Ethiopia and Sudan) and Madagascar, the Comoros, Mauritius, and Réunion in the Indian Ocean. The plant was exported from Africa to countries around the world and coffee plants are now cultivated in over 70 countries, primarily in the equatorial regions of the Americas, Southeast Asia, India, and Africa. The two most commonly grown are the highly regarded arabica, and the less sophisticated but stronger and more hardy robusta. Once ripe, coffee berries are picked, processed, and dried. Dried coffee seeds (referred to as beans) are roasted to varying degrees, depending on the desired flavour. Roasted beans are ground and brewed with near-boiling water to produce coffee as a beverage.\r\n\r\nCoffee is slightly acidic and can have a stimulating effect on humans because of its caffeine content. Coffee is one of the most popular drinks in the world. It can be prepared and presented in a variety of ways (e.g., espresso, French press, cafe latte, etc.). It is usually served hot, although iced coffee is also served. Clinical studies indicate that moderate coffee consumption is benign or mildly beneficial in healthy adults, with continuing research on whether long-term consumption inhibits cognitive decline during aging or lowers the risk of some forms of cancer.\r\n\r\nThe earliest credible evidence of coffee-drinking appears in the middle of the 15th century in the Sufi shrines of Yemen. It was here in Arabia that coffee seeds were first roasted and brewed in a similar way to how it is now prepared. Coffee seeds were first exported from East Africa to Yemen, as the coffea arabica plant is thought to have been indigenous to the former. Yemeni traders took coffee back to their homeland and began to cultivate the seed. By the 16th century, it had reached Persia, Turkey, and North Africa. From there, it spread to Europe and the rest of the world.\r\n\r\nCoffee is a major export commodity: it is the top agricultural export for numerous countries and is among the world's largest legal agricultural exports. It is one of the most valuable commodities exported by developing countries. Green (unroasted) coffee is one of the most traded agricultural commodities in the world. Some controversy is associated with coffee cultivation and the way developed countries trade with developing nations and the impact of its cultivation on the environment, in regards to clearing of land for coffee-growing and water use. Consequently, the markets for fair trade coffee and organic coffee are expanding.",
+                        "type": "Coffee",
+                        "flavour": "coffee",
+                        "country": "Ethiopia"
+                      }
+                    },
+                    {
+                      "_id": "65d61ce7f7dfde16792f7543",
+                      "title": "Sugar",
+                      "measure": "1 tsp ",
+                      "ingredient": {
+                        "_id": "64aebb7f82d96cc69e0eb4bc",
+                        "title": "Sugar",
+                        "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Sugar.png",
+                        "thumb-medium": "https://ftp.goit.study/img/drinkify/ingredients/Sugar-Medium.png",
+                        "thumb-small": "https://ftp.goit.study/img/drinkify/ingredients/Sugar-Small.png",
+                        "abv": 100,
+                        "alcohol": "No",
+                        "description": "Sugar is the generic name for sweet-tasting, soluble carbohydrates, many of which are used in food.",
+                        "type": "Sweetener",
+                        "flavour": "sugar",
+                        "country": "United States"
+                      }
+                    },
+                    {
+                      "_id": "65d61ce7f7dfde16792f7544",
+                      "title": "Whipped cream",
+                      "measure": "1 tblsp ",
+                      "ingredient": null
+                    }
+                  ],
+                  "shortDescription": "A classic hot cocktail with coffee, Irish whiskey, and whipped cream.",
+                  "favoritedBy": []
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Incorrect data",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Incorrectly entered data. Cocktail id is expected"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Drink not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Drink not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/drinks/favorite": {
       "get": {
         "tags": ["Drinks"],
