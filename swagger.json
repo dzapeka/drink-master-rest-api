@@ -35,10 +35,6 @@
     {
       "name": "Drinks",
       "description": "Drinks endpoints"
-    },
-    {
-      "name": "Favorite",
-      "description": "Favorite endpoints"
     }
   ],
   "paths": {
@@ -682,7 +678,7 @@
     },
     "/favorite": {
       "get": {
-        "tags": ["Favorite"],
+        "tags": ["Drinks"],
         "summary": "Returns favorite drink",
         "security": [
           {
@@ -821,7 +817,7 @@
     },
     "/favorite/add": {
       "get": {
-        "tags": ["Favorite"],
+        "tags": ["Drinks"],
         "summary": "Adds cocktails to the user's favorite drinks",
         "security": [
           {
@@ -929,7 +925,7 @@
     },
     "/favorite/remove/:drinkId": {
       "delete": {
-        "tags": ["Favorite"],
+        "tags": ["Drinks"],
         "summary": "Removes cocktails from the user's favorite drinks",
         "security": [
           {

@@ -74,4 +74,6 @@ const search = async (req, res, next) => {
   }
 };
 
-module.exports = { getRandomDrinks, search };
+const getDrinkById = async () => {};
+
+module.exports = { getRandomDrinks, search, getDrinkById };
