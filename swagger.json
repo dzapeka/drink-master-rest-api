@@ -676,7 +676,7 @@
         }
       }
     },
-    "/drinks/:id": {
+    "/drinks/{id}": {
       "get": {
         "tags": ["Drinks"],
         "summary": "Returns cocktail by id",
@@ -684,6 +684,18 @@
         "security": [
           {
             "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the drink to be returned",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
           }
         ],
         "responses": {
@@ -761,8 +773,7 @@
                       "type": "string"
                     }
                   }
-                }
-                ,
+                },
                 "example": {
                   "_id": "639b6de9ff77d221f190c508",
                   "drink": "Irish Coffee",
@@ -877,7 +888,7 @@
     "/drinks/favorite": {
       "get": {
         "tags": ["Drinks"],
-        "summary": "Returns favorite drink",
+        "summary": "Returns favorite drinks",
         "security": [
           {
             "BearerAuth": []
@@ -1005,16 +1016,14 @@
             "content": {
               "application/json": {
                 "example": {
-                  "message": "Favorites drinks not found"
+                  "message": "You don't have any favorite cocktails yet"
                 }
               }
             }
           }
         }
-      }
-    },
-    "/drinks/favorite/add": {
-      "get": {
+      },
+      "post": {
         "tags": ["Drinks"],
         "summary": "Adds cocktails to the user's favorite drinks",
         "security": [
@@ -1022,6 +1031,20 @@
             "BearerAuth": []
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": ["drinkId"],
+                "properties": {
+                  "drinkId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "The cocktail was added successfully",
@@ -1032,10 +1055,6 @@
                   "properties": {
                     "message": {
                       "type": "string"
-                    },
-                    "addedDrink": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/Drink"
                     }
                   }
                 },
@@ -1121,13 +1140,26 @@
         }
       }
     },
-    "/drinks/favorite/remove/:drinkId": {
+
+    "/drinks/favorite/{drinkId}": {
       "delete": {
         "tags": ["Drinks"],
         "summary": "Removes cocktails from the user's favorite drinks",
         "security": [
           {
             "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "drinkId",
+            "in": "path",
+            "description": "ID of the drink to be removed",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
           }
         ],
         "responses": {
@@ -1140,64 +1172,11 @@
                   "properties": {
                     "message": {
                       "type": "string"
-                    },
-                    "deletedDrink": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/Drink"
                     }
                   }
                 },
                 "example": {
-                  "message": "Cocktail successfully deleted.",
-                  "deletedDrink": {
-                    "_id": "639b6de9ff77d221f190c50f",
-                    "drink": "Quentin",
-                    "drinkAlternate": "Sorry, not specified",
-                    "tags": "IBA,ContemporaryClassic",
-                    "video": "https://www.youtube.com/watch?v=2jtoa_t7g94",
-                    "category": "Ordinary Drink",
-                    "IBA": "Contemporary Classics",
-                    "alcoholic": "Alcoholic",
-                    "glass": "Cocktail glass",
-                    "description": "Quentin is a refreshing cocktail that combines the flavors of citrus and mint. It is made with fresh lime juice, orange liqueur, and a touch of mint syrup. The drink is served over ice and garnished with a sprig of mint. It is the perfect beverage for a hot summer day.",
-                    "instructions": "In a shaker half-filled with ice cubes, combine the rum, Kahlua, and cream. Shake well. Strain into a cocktail glass and garnish with the nutmeg.",
-                    "instructionsES": "En una coctelera llena hasta la mitad con cubitos de hielo, combine el ron, Kahlua y la crema. Agite bien. Colar en una copa de cóctel y decorar con la nuez moscada.",
-                    "instructionsDE": "In einem Shaker, der halb mit Eiswürfeln gefüllt ist, Rum, Kahlua und Sahne mischen. Gut schütteln. In ein Cocktailglas abseihen und mit der Muskatnuss garnieren.",
-                    "instructionsFR": "Dans un shaker à moitié rempli de glaçons, mélanger le rhum, le Kahlua et la crème. Bien agiter. Versez dans un verre à cocktail et décorez avec la noix de muscade.",
-                    "instructionsIT": "In uno shaker riempito a metà con cubetti di ghiaccio, unire il rum, il Kahlua e la panna. Filtrare in una coppetta da cocktail e guarnire con la noce moscata. Agitare bene.",
-                    "instructionsRU": "В шейкере, наполовину наполненном кубиками льда, смешайте ром, Калуа и сливки. Хорошо встряхнуть. Процедите в коктейльный бокал и украсьте мускатным орехом.",
-                    "instructionsPL": "W shakerze wypełnionym do połowy kostkami lodu wymieszać rum, Kahlua i śmietanę. Dobrze wstrząsnąć. Przelej do kieliszka koktajlowego i udekoruj gałką muszkatołową.",
-                    "instructionsUK": "У шейкері, наповненому наполовину кубиками льоду, змішайте ром, Калуа та вершки. Добре струсити. Процідіть у келих для коктейлю та прикрасьте мускатним горіхом.",
-                    "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg",
-                    "ingredients": [
-                      {
-                        "_id": "65d4e55cd42a3b84b21bfc57",
-                        "title": "Dark rum",
-                        "measure": "1 1/2 oz ",
-                        "ingredientId": "64aebb7f82d96cc69e0eb4a7"
-                      },
-                      {
-                        "_id": "65d4e55cd42a3b84b21bfc58",
-                        "title": "Kahlua",
-                        "measure": "1/2 oz ",
-                        "ingredientId": "64aebb7f82d96cc69e0eb4bd"
-                      },
-                      {
-                        "_id": "65d4e55cd42a3b84b21bfc59",
-                        "title": "Light cream",
-                        "measure": "1 oz ",
-                        "ingredientId": "64f1d5c069d8333cf130fb31"
-                      },
-                      {
-                        "_id": "65d4e55cd42a3b84b21bfc5a",
-                        "title": "Nutmeg",
-                        "measure": "1/8 tsp grated ",
-                        "ingredientId": "64f1d5c069d8333cf130fb34"
-                      }
-                    ],
-                    "shortDescription": "A refreshing and citrusy cocktail with a hint of mint.",
-                    "ownerIds": ["65d0dcb810d121a004b9d440"]
-                  }
+                  "message": "The cocktail was successfully removed"
                 }
               }
             }

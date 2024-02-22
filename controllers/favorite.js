@@ -5,14 +5,13 @@ const getFavoriteDrinks = async (req, res, next) => {
   try {
     const userId = req.user.id;
 
-    const favoriteDrinks = await Drink.find({ favoritedBy: userId });
+    const favoriteDrinks = await Drink.find({
+      favoritedBy: userId,
+    });
 
-    if (favoriteDrinks === null) {
-      return res.status(404).json({ message: 'Favorites drinks not found' });
-    }
-    if (favoriteDrinks.length === 0) {
+    if (favoriteDrinks === null || favoriteDrinks.length === 0) {
       return res
-        .status(200)
+        .status(404)
         .json({ message: "You don't have any favorite cocktails yet" });
     }
 
@@ -60,7 +59,6 @@ const addToFavoriteDrinks = async (req, res, next) => {
 
     return res.status(200).json({
       message: 'Successfully added to your favorite cocktails',
-      addedDrink: updatedFavoriteDrinks,
     });
   } catch (error) {
     next(error);
@@ -101,7 +99,6 @@ const removeFromFavorite = async (req, res, next) => {
 
     return res.status(200).json({
       message: 'The cocktail was successfully removed',
-      deletedDrink,
     });
   } catch (error) {
     next(error);

@@ -5,11 +5,8 @@ const drinkController = require('../controllers/drink');
 const favoriteControler = require('../controllers/favorite');
 
 router.get('/favorite', favoriteControler.getFavoriteDrinks);
-router.post('/favorite/add', favoriteControler.addToFavoriteDrinks);
-router.delete(
-  '/favorite/remove/:drinkId',
-  favoriteControler.removeFromFavorite
-);
+router.post('/favorite', favoriteControler.addToFavoriteDrinks);
+router.delete('/favorite/:drinkId', favoriteControler.removeFromFavorite);
 
 router.get('/mainpage', drinkController.getRandomDrinks);
 router.get('/search', drinkController.search);
