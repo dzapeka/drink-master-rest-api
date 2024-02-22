@@ -140,7 +140,7 @@ const getPopularDrinks = async (req, res, next) => {
     ]);
 
     if (popularDrinks === null || typeof popularDrinks === 'undefined') {
-      return res.status(404).json({ message: 'Favorites drinks not found' });
+      return res.status(404).json({ message: 'Popular drinks not found' });
     }
     return res.status(200).send(popularDrinks);
   } catch (error) {

@@ -676,6 +676,230 @@
         }
       }
     },
+    "/drinks/popular": {
+      "get": {
+        "tags": ["Drinks"],
+        "summary": "Returns popular drinks",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return list of popular cocktails",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "items": {
+                      "$ref": "#/components/schemas/Drink"
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "_id": "639b6de9ff77d221f190c662",
+                    "drink": "Mojito",
+                    "drinkAlternate": "Sorry, not specified",
+                    "tags": "IBA,ContemporaryClassic,Alcoholic,USA,Asia,Vegan,Citrus,Brunch,Hangover,Mild",
+                    "video": "Sorry, not specified",
+                    "category": "Cocktail",
+                    "IBA": "Contemporary Classics",
+                    "alcoholic": "Alcoholic",
+                    "glass": "Highball glass",
+                    "description": "Mojito is a classic and refreshing cocktail that's perfect for those who appreciate the timeless appeal of rum-based drinks. This iconic libation combines rum with fresh mint leaves, lime juice, and soda water, creating a crisp and invigorating drink with a touch of citrusy tartness and a hint of herbal freshness. It's a cocktail that's known for its minty kick and the zing of lime, making it a favorite choice for those who want to enjoy a taste of Cuba in their glass. Sip on a Mojito and let its classic flavors transport you to a sunny Havana courtyard.",
+                    "instructions": "Muddle mint leaves with sugar and lime juice. Add a splash of soda water and fill the glass with cracked ice. Pour the rum and top with soda water. Garnish and serve with straw.",
+                    "instructionsES": "Triture las hojas de menta con el azúcar y el jugo de lima. Agregue un chorrito de agua con gas y llene el vaso con hielo picado. Vierta el ron y cubra con agua de soda. Decorar y servir con pajita.",
+                    "instructionsDE": "Minzblätter mit Zucker und Limettensaft verrühren. Füge einen Spritzer Sodawasser hinzu und fülle das Glas mit gebrochenem Eis. Den Rum eingießen und mit Sodawasser übergießen. Garnieren und mit einem Strohhalm servieren.",
+                    "instructionsFR": "Écraser les feuilles de menthe avec le sucre et le jus de citron vert. Ajouter un peu d'eau gazeuse et remplir le verre de glace pilée. Versez le rhum et complétez avec de l'eau gazeuse. Garnir et servir avec de la paille.",
+                    "instructionsIT": "Pestare le foglie di menta con lo zucchero e il succo di lime.\r\nAggiungere una spruzzata di acqua di seltz e riempi il bicchiere con ghiaccio tritato.\r\nVersare il rum e riempire con acqua di seltz.\r\nGuarnire con una fetta di lime, servire con una cannuccia.",
+                    "instructionsRU": "Смешайте листья мяты с сахаром и соком лайма. Добавьте немного газированной воды и наполните стакан колотым льдом. Налейте ром и сверху долейте содовой. Украсьте и подавайте с соломинкой.",
+                    "instructionsPL": "Utrzeć liście mięty z cukrem i sokiem z limonki. Dodaj odrobinę wody sodowej i napełnij szklankę popękanym lodem. Wlej rum i polej wodą sodową. Udekoruj i podawaj słomą.",
+                    "instructionsUK": "Перемішайте листя м'яти з цукром і соком лайма. Додайте трохи газованої води та наповніть келих колотим льодом. Влити ром і залити газованою водою. Прикрасьте і подавайте з соломкою.",
+                    "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Mojito.jpg",
+                    "ingredients": [
+                      {
+                        "title": "Light rum",
+                        "measure": "2-3 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4a4"
+                      },
+                      {
+                        "title": "Lime",
+                        "measure": "Juice of 1 ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4db"
+                      },
+                      {
+                        "title": "Sugar",
+                        "measure": "2 tsp ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4bc"
+                      },
+                      {
+                        "title": "Mint",
+                        "measure": "2-4 ",
+                        "ingredientId": "64f1d5c269d8333cf130fb5b"
+                      },
+                      {
+                        "title": "Soda water",
+                        "ingredientId": "64f1d5d669d8333cf130fccd"
+                      }
+                    ],
+                    "shortDescription": "A classic and refreshing cocktail with rum, mint, lime juice, and soda water.",
+                    "favoritedByCount": 7
+                  },
+                  {
+                    "_id": "639b6de9ff77d221f190c601",
+                    "drink": "Bora Bora",
+                    "drinkAlternate": "Sorry, not specified",
+                    "tags": "Sorry, not specified",
+                    "video": "Sorry, not specified",
+                    "category": "Cocktail",
+                    "IBA": "Sorry, not specified",
+                    "alcoholic": "Non alcoholic",
+                    "glass": "Highball glass",
+                    "description": "Bora Bora is a tropical and exotic cocktail that's perfect for those who dream of lounging on a sandy beach in paradise. This vibrant libation combines rum with pineapple juice and blue curaçao, creating a colorful and refreshing drink with the tropical flavors of pineapple and a hint of orange liqueur. It's known for its island-inspired character and the ability to transport you to a state of blissful relaxation. Sip on a Bora Bora and let the tropical vibes flow.",
+                    "instructions": "Prepare in a blender or shaker, serve in a highball glass on the rocks. Garnish with 1 slice of pineapple and one cherry.",
+                    "instructionsES": "Preparar en batidora o batidora, servir en vaso alto con hielo. Adorne con 1 rodaja de piña y una cereza.",
+                    "instructionsDE": "In einem Mixer oder Shaker zubereiten, in einem Highball-Glas \"On the Rocks\" servieren. Mit 1 Scheibe Ananas und einer Kirsche garnieren.",
+                    "instructionsFR": "Préparez au blender ou au shaker, servez dans un verre highball on the rocks. Garnir d'une tranche d'ananas et d'une cerise.",
+                    "instructionsIT": "Preparare in un frullatore o uno shaker, servire in un bicchiere highball con ghiaccio.Guarnire con 1 fetta di ananas e una ciliegia.",
+                    "instructionsRU": "Готовить в блендере или шейкере, подавать в хайболе со льдом. Украсьте 1 ломтиком ананаса и одной вишней.",
+                    "instructionsPL": "Przygotuj w blenderze lub shakerze, podawaj w szklance typu highball na kamieniach. Udekoruj 1 plasterkiem ananasa i jedną wiśnią.",
+                    "instructionsUK": "Готуйте в блендері або шейкері, подавайте в склянці хайбол на скелях. Прикрасьте 1 скибочкою ананаса і однією вишнею.",
+                    "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Bora_Bora.jpg",
+                    "ingredients": [
+                      {
+                        "title": "Pineapple juice",
+                        "measure": "10 cl ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4d2"
+                      },
+                      {
+                        "title": "Passion fruit juice",
+                        "measure": "6 cl ",
+                        "ingredientId": "64f1d5cb69d8333cf130fc0e"
+                      },
+                      {
+                        "title": "Lemon juice",
+                        "measure": "1 cl ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4d3"
+                      },
+                      {
+                        "title": "Grenadine",
+                        "measure": "1 cl ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4c7"
+                      }
+                    ],
+                    "shortDescription": "A tropical and exotic cocktail with rum, pineapple juice, and blue curaçao.",
+                    "favoritedByCount": 6
+                  },
+                  {
+                    "_id": "639b6de9ff77d221f190c668",
+                    "drink": "Margarita",
+                    "drinkAlternate": "Sorry, not specified",
+                    "tags": "IBA,ContemporaryClassic",
+                    "video": "Sorry, not specified",
+                    "category": "Ordinary Drink",
+                    "IBA": "Contemporary Classics",
+                    "alcoholic": "Alcoholic",
+                    "glass": "Cocktail glass",
+                    "description": "Margarita is a classic and refreshing cocktail that's perfect for those who appreciate the timeless appeal of citrusy drinks. This iconic libation combines tequila with triple sec and lime juice, creating a zesty and invigorating sip that's a favorite at bars and parties around the world. It's a cocktail that's known for its balance of sweet and tart, making it a beloved choice for those who enjoy a touch of citrusy goodness in their glass. Sip on a Margarita and enjoy the classic taste of this beloved drink.",
+                    "instructions": "Rub the rim of the glass with the lime slice to make the salt stick to it. Take care to moisten only the outer rim and sprinkle the salt on it. The salt should present to the lips of the imbiber and never mix into the cocktail. Shake the other ingredients with ice, then carefully pour into the glass.",
+                    "instructionsES": "Frota el borde del vaso con la rodaja de lima para que se pegue la sal. Tenga cuidado de humedecer solo el borde exterior y espolvorear la sal sobre él. La sal debe presentarse en los labios del bebedor y nunca mezclarse con el cóctel. Agite los demás ingredientes con hielo, luego vierta con cuidado en el vaso.",
+                    "instructionsDE": "Reiben Sie den Rand des Glases mit der Limettenscheibe, damit das Salz daran haftet. Achten Sie darauf, dass nur der äußere Rand angefeuchtet wird und streuen Sie das Salz darauf. Das Salz sollte sich auf den Lippen des Genießers befinden und niemals in den Cocktail einmischen. Die anderen Zutaten mit Eis schütteln und vorsichtig in das Glas geben.",
+                    "instructionsFR": "Frotter le bord du verre avec la tranche de citron vert pour y faire adhérer le sel. Prenez soin de n'humidifier que le bord extérieur et saupoudrez-le de sel. Le sel doit se présenter aux lèvres du buveur et ne jamais se mélanger au cocktail. Agiter les autres ingrédients avec de la glace, puis verser délicatement dans le verre.",
+                    "instructionsIT": "Strofina il bordo del bicchiere con la fetta di lime per far aderire il sale.\r\nAvere cura di inumidire solo il bordo esterno e cospargere di sale.\r\nIl sale dovrebbe presentarsi alle labbra del bevitore e non mescolarsi mai al cocktail.\r\nShakerare gli altri ingredienti con ghiaccio, quindi versarli delicatamente nel bicchiere.",
+                    "instructionsRU": "Протрите край стакана ломтиком лайма, чтобы соль прилипла к нему. Позаботьтесь о том, чтобы увлажнить только внешний край и посыпать его солью. Соль должна быть на губах выпившего и никогда не смешиваться с коктейлем. Встряхните остальные ингредиенты со льдом, затем осторожно перелейте в бокал.",
+                    "instructionsPL": "Potrzyj brzeg szklanki plasterkiem limonki, aby sól się do niego przykleiła. Uważaj, aby zwilżyć tylko zewnętrzną krawędź i posyp ją solą. Sól powinna znajdować się na ustach pijaka i nigdy nie mieszać się z koktajlem. Pozostałe składniki wstrząsnąć lodem, a następnie ostrożnie wlać do szklanki.",
+                    "instructionsUK": "Натріть край келиха шматочком лайма, щоб сіль прилипла до нього. Слідкуйте за тим, щоб зволожити лише зовнішній край і посипати його сіллю. Сіль повинна потрапляти на губи того, хто п’є, і ніколи не змішувати з коктейлем. Збовтайте інші інгредієнти з льодом, потім обережно перелийте в келих.",
+                    "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Margarita.jpg",
+                    "ingredients": [
+                      {
+                        "title": "Tequila",
+                        "measure": "1 1/2 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4b8"
+                      },
+                      {
+                        "title": "Triple sec",
+                        "measure": "1/2 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4ac"
+                      },
+                      {
+                        "title": "Lime juice",
+                        "measure": "1 oz ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4c1"
+                      },
+                      {
+                        "title": "Salt",
+                        "ingredientId": "64f1d5d969d8333cf130fd07"
+                      }
+                    ],
+                    "shortDescription": "A classic and refreshing cocktail with tequila, triple sec, and lime juice.",
+                    "favoritedByCount": 5
+                  },
+                  {
+                    "_id": "639b6de9ff77d221f190c506",
+                    "drink": "Iced Coffee",
+                    "drinkAlternate": "Sorry, not specified",
+                    "tags": "Sorry, not specified",
+                    "video": "Sorry, not specified",
+                    "category": "Coffee / Tea",
+                    "IBA": "Sorry, not specified",
+                    "alcoholic": "Non alcoholic",
+                    "glass": "Coffee mug",
+                    "description": "Iced Coffee is a refreshing and chilled beverage that combines the rich and robust flavors of coffee with the cooling sensation of ice. This popular drink is perfect for hot summer days or when you need a pick-me-up. Enjoy the smooth and invigorating taste of Iced Coffee and let it awaken your senses.",
+                    "instructions": "Mix together until coffee and sugar is dissolved. Add milk. Shake well. Using a blender or milk shake maker produces a very foamy drink. Serve in coffee mug.",
+                    "instructionsES": "Mezcle hasta que el café y el azúcar se disuelvan. Añadir leche. Agite bien. El uso de una licuadora o un batidor de leche produce una bebida muy espumosa. Servir en taza de café.",
+                    "instructionsDE": "Zusammenmischen, bis Kaffee und Zucker aufgelöst sind. Milch zugeben. Gut schütteln. Die Verwendung eines Mixers oder Milchshakemachers ergibt es ein sehr schaumiges Getränk. In einer Kaffeetasse servieren.",
+                    "instructionsFR": "Mélanger jusqu'à ce que le café et le sucre soient dissous. Ajouter le lait. Bien agiter. L'utilisation d'un mélangeur ou d'un milk-shake permet d'obtenir une boisson très mousseuse. Servir dans une tasse à café.",
+                    "instructionsIT": "Mescolare fino a quando il caffè e lo zucchero si saranno sciolti. Aggiungi il latte. Agitare bene. L'uso di un frullatore o di un frullato produce una bevanda molto schiumosa. Servito in tazza da caffè.",
+                    "instructionsRU": "Перемешивайте, пока кофе и сахар не растворятся. Добавьте молоко. Хорошо встряхнуть. Использование блендера или молочного коктейля позволяет получить очень пенистый напиток. Подавать в кофейной кружке.",
+                    "instructionsPL": "Wymieszaj, aż kawa i cukier się rozpuszczą. Dodaj mleko. Dobrze wstrząsnąć. Używanie blendera lub ekspresu do koktajli mlecznych daje bardzo pienisty napój. Podawaj w kubku do kawy.",
+                    "instructionsUK": "Змішайте, поки кава та цукор не розчиняться. Додати молоко. Добре струсити. За допомогою блендера або виробника молочних коктейлів можна отримати дуже пінний напій. Подавати в чашці для кави.",
+                    "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Iced_Coffee.jpg",
+                    "ingredients": [
+                      {
+                        "title": "Coffee",
+                        "measure": "1/4 cup instant ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4e7"
+                      },
+                      {
+                        "title": "Sugar",
+                        "measure": "1/4 cup ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4bc"
+                      },
+                      {
+                        "title": "Water",
+                        "measure": "1/4 cup hot ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4e9"
+                      },
+                      {
+                        "title": "Milk",
+                        "measure": "4 cups cold ",
+                        "ingredientId": "64aebb7f82d96cc69e0eb4d5"
+                      }
+                    ],
+                    "shortDescription": "A refreshing and chilled beverage made with coffee and served over ice.",
+                    "favoritedByCount": 5
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "No drinks were found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Popular drinks not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/drinks/{id}": {
       "get": {
         "tags": ["Drinks"],
