@@ -85,13 +85,12 @@ const getDrinkById = async (req, res, next) => {
         .json({ message: 'Incorrectly entered data. Cocktail id is expected' });
     }
 
-    const drinkData = await Drink.findOne({ _id: drinkId }).populate(
-      'ingredients.ingredientId'
-    );
+    const drinkData = await Drink.findOne({ _id: drinkId }, { favoritedBy: 0 })
+      .populate('ingredients.ingredientId')
+      .lean();
 
     if (drinkData === null) {
-      res.status(404).json({ message: 'Drink not found' });
-      return;
+      return res.status(404).json({ message: 'Drink not found' });
     }
 
     const modifiedIngredients = drinkData.ingredients.map(ingredient => ({
@@ -102,14 +101,51 @@ const getDrinkById = async (req, res, next) => {
     }));
 
     const modifiedDrink = {
-      ...drinkData.toObject(),
+      ...drinkData,
       ingredients: modifiedIngredients,
     };
 
-    res.status(200).send(modifiedDrink);
+    return res.status(200).send(modifiedDrink);
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { getRandomDrinks, search, getDrinkById };
+const getPopularDrinks = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    const userAge = getUserAge(user.dateOfBirth);
+
+    let matchCondition = {};
+    if (userAge < 18) {
+      matchCondition = { alcoholic: 'Non alcoholic' };
+    }
+
+    const popularDrinks = await Drink.aggregate([
+      { $match: { ...matchCondition } },
+      {
+        $addFields: {
+          favoritedByCount: { $size: '$favoritedBy' },
+        },
+      },
+      {
+        $sort: { favoritedByCount: -1 },
+      },
+      {
+        $project: { favoritedBy: 0 },
+      },
+      {
+        $limit: 4,
+      },
+    ]);
+
+    if (popularDrinks === null || typeof popularDrinks === 'undefined') {
+      return res.status(404).json({ message: 'Popular drinks not found' });
+    }
+    return res.status(200).send(popularDrinks);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getRandomDrinks, search, getDrinkById, getPopularDrinks };

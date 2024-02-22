@@ -5,9 +5,12 @@ const getFavoriteDrinks = async (req, res, next) => {
   try {
     const userId = req.user.id;
 
-    const favoriteDrinks = await Drink.find({
-      favoritedBy: userId,
-    });
+    const favoriteDrinks = await Drink.find(
+      {
+        favoritedBy: userId,
+      },
+      { favoritedBy: 0 }
+    ).lean();
 
     if (favoriteDrinks === null || favoriteDrinks.length === 0) {
       return res
