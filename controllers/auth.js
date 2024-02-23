@@ -2,29 +2,42 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
+const TOKEN_EXPIRES_IN = '21 days';
+
 const register = async (req, res, next) => {
   const { name, email, password, dateOfBirth } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    let user = await User.findOne({ email });
     if (user !== null) {
       return res.status(409).send({ message: 'Email already in use' });
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
 
-    const result = await User.create({
+    user = await User.create({
       name,
       email,
       password: passwordHash,
       dateOfBirth,
     });
 
+    const token = jwt.sign(
+      { id: user._id, name: user.name },
+      process.env.JWT_SECRET,
+      { expiresIn: TOKEN_EXPIRES_IN }
+    );
+
+    await User.findByIdAndUpdate(user._id, {
+      token,
+    });
+
     res.status(201).send({
+      token,
       user: {
-        name: result.name,
-        email: result.email,
-        dateOfBirth: result.dateOfBirth,
+        name: user.name,
+        email: user.email,
+        dateOfBirth: user.dateOfBirth,
       },
     });
   } catch (error) {
@@ -51,7 +64,7 @@ const login = async (req, res, next) => {
     const token = jwt.sign(
       { id: user._id, name: user.name },
       process.env.JWT_SECRET,
-      { expiresIn: '21 days' }
+      { expiresIn: TOKEN_EXPIRES_IN }
     );
 
     await User.findByIdAndUpdate(user._id, {
