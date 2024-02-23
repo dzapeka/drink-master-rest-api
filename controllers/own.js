@@ -5,7 +5,7 @@ const ownDrinkSchema = require('../schemas/ownDrink');
 const addToOwnDrinks = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const avatarURL = req.file.path;
+    const drinkThumbURL = req.file ? req.file.path : '';
     const drink = JSON.parse(req.body.ownDrink);
 
     const response = ownDrinkSchema.validate(drink, { abortEarly: false });
@@ -16,32 +16,19 @@ const addToOwnDrinks = async (req, res, next) => {
       });
     }
 
-    const isInDrinks = await Drink.findOne({
-      drink: { $regex: new RegExp('^' + drink.drink + '$', 'i') },
-    });
-
-    if (isInDrinks) {
-      return res.status(409).send({
-        message: 'The cocktail with that name already exists',
-      });
-    }
-
     const updatedDrink = {
       ...drink,
       ownerId: new mongoose.Types.ObjectId(userId),
-      drinkThumb: avatarURL,
+      drinkThumb: drinkThumbURL,
       favoritedBy: [],
     };
 
     const createdDrink = await Drink.create(updatedDrink);
 
-    if (createdDrink === null) {
-      return res.status(404).json({ message: 'Favorites drinks not found' });
-    }
-
-    return res
-      .status(200)
-      .json({ message: 'Your custom cocktail has been successfully added' });
+    return res.status(200).json({
+      message: 'Your custom cocktail has been successfully added',
+      createdDrink,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -89,10 +76,7 @@ const removeFromOwnDrinks = async (req, res, next) => {
       return res.status(404).json({ message: 'Own drink not found' });
     }
 
-    const isInDrinks = await Drink.findOne({
-      ownerId: userId,
-      _id: ownDrink._id,
-    });
+    const isInDrinks = ownDrink.ownerId.toString() === userId;
 
     if (!isInDrinks) {
       return res.status(403).json({
