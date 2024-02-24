@@ -175,7 +175,6 @@ const addOwnDrink = async (req, res, next) => {
     const userId = req.user.id;
     const drinkThumb = req.file ? req.file.path : '';
     const {
-      cocktail,
       drink,
       category,
       glass,
@@ -189,7 +188,6 @@ const addOwnDrink = async (req, res, next) => {
     const parsedIngredients = JSON.parse(ingredients);
 
     const newDrink = await Drink.create({
-      cocktail,
       drink,
       category,
       glass,
@@ -245,9 +243,7 @@ const removeFromOwnDrinks = async (req, res, next) => {
       typeof drinkId === 'undefined' ||
       !mongoose.Types.ObjectId.isValid(drinkId)
     ) {
-      return res
-        .status(400)
-        .json({ message: 'Incorrectly entered data. Cocktail id is expected' });
+      return res.status(400).json({ message: 'Not valid drinkId' });
     }
 
     const ownDrink = await Drink.findById(drinkId);
@@ -260,7 +256,7 @@ const removeFromOwnDrinks = async (req, res, next) => {
 
     if (!isInDrinks) {
       return res.status(403).json({
-        message: 'The user does not have such a cocktail in his own cocktails',
+        message: 'The user does not have such a cocktail in his own drinks',
       });
     }
 

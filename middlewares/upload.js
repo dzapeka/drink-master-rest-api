@@ -24,7 +24,7 @@ const storage = new CloudinaryStorage({
         filename = userId;
         transformation = [{ width: 100, crop: 'scale' }, { quality: 'auto' }];
         break;
-      case 'cocktail':
+      case 'drinkThumb':
         folder = 'cocktails';
         filename = generateFilename(file);
         transformation = [{ width: 400, crop: 'scale' }, { quality: 'auto' }];
