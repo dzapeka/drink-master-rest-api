@@ -32,6 +32,20 @@ const getRandomDrinks = async (req, res, next) => {
         const drinks = await Drink.aggregate([
           { $match: { category: category.category, ...matchCondition } },
           { $sample: { size: drinksPerCategory } },
+          {
+            $project: {
+              _id: 1,
+              drink: 1,
+              category: 1,
+              alcoholic: 1,
+              glass: 1,
+              description: 1,
+              instructions: 1,
+              drinkThumb: 1,
+              ingredients: 1,
+              shortDescription: 1,
+            },
+          },
         ]);
 
         if (drinks.length >= drinksPerCategory) {
