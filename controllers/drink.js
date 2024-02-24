@@ -20,8 +20,8 @@ const getRandomDrinks = async (req, res, next) => {
     }
 
     const user = await User.findById(req.user.id);
-    const userAge = getUserAge(user.dateOfBirth);
 
+    const userAge = getUserAge(user.dateOfBirth);
     let matchCondition = {};
     if (userAge < 18) {
       matchCondition = { alcoholic: 'Non alcoholic' };
@@ -64,11 +64,18 @@ const getRandomDrinks = async (req, res, next) => {
 
 const search = async (req, res, next) => {
   try {
+    const user = await User.findById(req.user.id);
+    const userAge = getUserAge(user.dateOfBirth);
+
     const { name, category, ingredient, page = 1, size = 10 } = req.query;
     const filter = {};
     if (name) filter.drink = { $regex: name, $options: 'i' };
     if (category) filter.category = category;
     if (ingredient) filter.ingredients = { $elemMatch: { title: ingredient } };
+    if (userAge < 18)
+      filter.alcoholic = {
+        $not: { $regex: /^Alcoholic$/i },
+      };
 
     const drinks = await Drink.find(filter)
       .skip((page - 1) * size)
@@ -80,6 +87,7 @@ const search = async (req, res, next) => {
     const total = await Drink.countDocuments(filter);
 
     res.json({
+      total,
       totalPages: Math.ceil(total / size),
       currentPage: page,
       drinks,
@@ -162,4 +170,116 @@ const getPopularDrinks = async (req, res, next) => {
   }
 };
 
-module.exports = { getRandomDrinks, search, getDrinkById, getPopularDrinks };
+const addOwnDrink = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const drinkThumb = req.file ? req.file.path : '';
+    const {
+      cocktail,
+      drink,
+      category,
+      glass,
+      alcoholic,
+      description,
+      shortDescription,
+      instructions,
+      ingredients,
+    } = req.body;
+
+    const parsedIngredients = JSON.parse(ingredients);
+
+    const newDrink = await Drink.create({
+      cocktail,
+      drink,
+      category,
+      glass,
+      alcoholic,
+      description,
+      shortDescription,
+      instructions,
+      drinkThumb,
+      ingredients: parsedIngredients,
+      ownerId: userId,
+    });
+
+    return res.status(201).json({
+      message: 'Cocktail successfully created',
+      newDrink,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Cocktail creation failed',
+      error: error.message,
+    });
+  }
+};
+
+const getOwnDrinks = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+
+    const ownerDrinks = await Drink.find(
+      { ownerId: userId },
+      { favoritedBy: 0, ownerId: 0 }
+    );
+
+    if (ownerDrinks === null || ownerDrinks.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "You don't have any own drinks yet" });
+    }
+
+    return res.status(200).send(ownerDrinks);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const removeFromOwnDrinks = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const { drinkId } = req.params;
+
+    if (
+      drinkId === null ||
+      typeof drinkId === 'undefined' ||
+      !mongoose.Types.ObjectId.isValid(drinkId)
+    ) {
+      return res
+        .status(400)
+        .json({ message: 'Incorrectly entered data. Cocktail id is expected' });
+    }
+
+    const ownDrink = await Drink.findById(drinkId);
+
+    if (ownDrink === null) {
+      return res.status(404).json({ message: 'Own drink not found' });
+    }
+
+    const isInDrinks = ownDrink.ownerId.toString() === userId;
+
+    if (!isInDrinks) {
+      return res.status(403).json({
+        message: 'The user does not have such a cocktail in his own cocktails',
+      });
+    }
+
+    await Drink.findByIdAndDelete(drinkId, { new: false });
+
+    return res.status(200).json({
+      message: 'The cocktail was successfully removed',
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  getRandomDrinks,
+  search,
+  getDrinkById,
+  getPopularDrinks,
+  addOwnDrink,
+  getOwnDrinks,
+  removeFromOwnDrinks,
+};

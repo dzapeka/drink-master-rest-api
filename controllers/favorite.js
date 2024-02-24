@@ -1,5 +1,6 @@
 const Drink = require('../models/drink');
 const drinkIdSchema = require('../schemas/favoriteDrinkId');
+const mongoose = require('mongoose');
 
 const getFavoriteDrinks = async (req, res, next) => {
   try {
@@ -29,7 +30,11 @@ const addToFavoriteDrinks = async (req, res, next) => {
     const userId = req.user.id;
     const drinkId = req.body.drinkId;
 
-    if (drinkId === null || typeof drinkId === 'undefined') {
+    if (
+      drinkId === null ||
+      typeof drinkId === 'undefined' ||
+      !mongoose.Types.ObjectId.isValid(drinkId)
+    ) {
       return res
         .status(400)
         .json({ message: 'Incorrectly entered data. Cocktail id is expected' });
@@ -73,7 +78,7 @@ const removeFromFavorite = async (req, res, next) => {
     const userId = req.user.id;
     const { drinkId } = req.params;
 
-    if (drinkId === null) {
+    if (!mongoose.Types.ObjectId.isValid(drinkId)) {
       return res
         .status(400)
         .json({ message: 'Incorrectly entered data. Cocktail id is expected' });
