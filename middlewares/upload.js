@@ -16,26 +16,30 @@ const storage = new CloudinaryStorage({
     const userId = req.user.id;
     let folder;
     let filename;
+    let transformation;
 
     switch (file.fieldname) {
       case 'avatar':
         folder = 'avatars';
         filename = userId;
+        transformation = [{ width: 100, crop: 'scale' }, { quality: 'auto' }];
         break;
       case 'cocktail':
         folder = 'cocktails';
         filename = generateFilename(file);
+        transformation = [{ width: 400, crop: 'scale' }, { quality: 'auto' }];
         break;
       default:
         folder = 'others';
         filename = generateFilename(file);
+        transformation = [{ quality: 'auto' }];
     }
 
     return {
       folder,
       allowed_formats: ['jpg', 'png'],
       public_id: filename,
-      transformation: [{ width: 100, height: 100 }, { quality: 'auto' }],
+      transformation,
     };
   },
 });

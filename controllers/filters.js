@@ -19,7 +19,9 @@ const getCategories = async (req, res, next) => {
 
 const getIngredients = async (req, res, next) => {
   try {
-    const data = await Ingredient.find();
+    const data = await Ingredient.find()
+      .collation({ locale: 'en', strength: 2 })
+      .sort({ title: 1 });
 
     if (data === null) {
       res.status(404).json({ message: 'Ingredients not found' });
@@ -32,7 +34,9 @@ const getIngredients = async (req, res, next) => {
 
 const getGlasses = async (req, res, next) => {
   try {
-    const data = await Glass.find();
+    const data = await Glass.find()
+      .collation({ locale: 'en', strength: 2 })
+      .sort({ glass: 1 });
 
     if (data === null) {
       res.status(404).json({ message: 'Glasses not found' });
