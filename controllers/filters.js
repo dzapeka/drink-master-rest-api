@@ -1,6 +1,8 @@
 const Category = require('../models/category');
 const Ingredient = require('../models/ingredient');
 const Glass = require('../models/glass');
+const getUserAge = require('../utils/getUserAge');
+const User = require('../models/user');
 
 const getCategories = async (req, res, next) => {
   try {
@@ -19,7 +21,15 @@ const getCategories = async (req, res, next) => {
 
 const getIngredients = async (req, res, next) => {
   try {
-    const data = await Ingredient.find()
+    const user = await User.findById(req.user.id);
+
+    const userAge = getUserAge(user.dateOfBirth);
+    let matchCondition = {};
+    if (userAge < 18) {
+      matchCondition = { alcohol: 'No' };
+    }
+
+    const data = await Ingredient.aggregate([{ $match: matchCondition }])
       .collation({ locale: 'en', strength: 2 })
       .sort({ title: 1 });
 

@@ -1,6 +1,20 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+const ingredientSchema = new Schema(
+  {
+    title: String,
+    measure: String,
+    ingredientId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Ingredient',
+      required: true,
+      auto: false, // Prevents Mongoose from generating _id for this sub-document
+    },
+  },
+  { _id: false } // Prevents Mongoose from generating _id for this sub-schema
+);
+
 const drinkSchema = new Schema(
   {
     drink: { type: String },
@@ -21,20 +35,10 @@ const drinkSchema = new Schema(
     instructionsPL: { type: String },
     instructionsUK: { type: String },
     drinkThumb: { type: String },
-    ingredients: [
-      {
-        title: { type: String },
-        measure: { type: String },
-        ingredientId: {
-          type: Schema.Types.ObjectId,
-          ref: 'Ingredient',
-          required: true,
-        },
-      },
-    ],
+    ingredients: [ingredientSchema],
     shortDescription: { type: String },
-    favoritedBy: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
-    ownerId: { type: mongoose.Schema.Types.ObjectId },
+    favoritedBy: [{ type: Schema.Types.ObjectId, default: [] }],
+    ownerId: { type: Schema.Types.ObjectId, default: null },
   },
   { versionKey: false, timestamps: true }
 );
