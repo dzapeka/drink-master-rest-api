@@ -215,19 +215,31 @@ const addOwnDrink = async (req, res, next) => {
 const getOwnDrinks = async (req, res, next) => {
   try {
     const userId = req.user.id;
+    const { page = 1, size = 10 } = req.query;
 
-    const ownerDrinks = await Drink.find(
-      { ownerId: userId },
-      { favoritedBy: 0, ownerId: 0 }
-    );
+    const filter = {
+      ownerId: userId,
+    };
 
-    if (ownerDrinks === null || ownerDrinks.length === 0) {
+    const ownDrinks = await Drink.find(filter, {
+      favoritedBy: 0,
+      ownerId: 0,
+    })
+      .skip((page - 1) * size)
+      .limit(Number(size));
+
+    if (ownDrinks === null || ownDrinks.length === 0) {
       return res
         .status(404)
         .json({ message: "You don't have any own drinks yet" });
     }
-
-    return res.status(200).send(ownerDrinks);
+    const total = await Drink.countDocuments(filter);
+    return res.status(200).json({
+      total,
+      totalPages: Math.ceil(total / size),
+      currentPage: page,
+      ownDrinks,
+    });
   } catch (error) {
     console.log(error);
   }
