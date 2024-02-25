@@ -5,13 +5,15 @@ const mongoose = require('mongoose');
 const getFavoriteDrinks = async (req, res, next) => {
   try {
     const userId = req.user.id;
+    const { page = 1, size = 10 } = req.query;
+    const filter = {
+      favoritedBy: userId,
+    };
 
-    const favoriteDrinks = await Drink.find(
-      {
-        favoritedBy: userId,
-      },
-      { favoritedBy: 0 }
-    ).lean();
+    const favoriteDrinks = await Drink.find(filter, { favoritedBy: 0 })
+      .lean()
+      .skip((page - 1) * size)
+      .limit(Number(size));
 
     if (favoriteDrinks === null || favoriteDrinks.length === 0) {
       return res
@@ -19,7 +21,14 @@ const getFavoriteDrinks = async (req, res, next) => {
         .json({ message: "You don't have any favorite cocktails yet" });
     }
 
-    return res.send(favoriteDrinks);
+    const total = await Drink.countDocuments(filter);
+
+    return res.json({
+      total,
+      totalPages: Math.ceil(total / size),
+      currentPage: page,
+      favoriteDrinks,
+    });
   } catch (error) {
     next(error);
   }
