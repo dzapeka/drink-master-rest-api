@@ -100,7 +100,7 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Log In User",
+        "summary": "Log in user",
         "requestBody": {
           "required": true,
           "content": {
@@ -181,7 +181,7 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Log Out User",
+        "summary": "Log out user",
         "security": [
           {
             "BearerAuth": []
@@ -522,6 +522,18 @@
             "BearerAuth": []
           }
         ],
+        "parameters": [
+          {
+            "name": "drinksPerCategory",
+            "in": "query",
+            "description": "Specifies the number of drink items to return per category.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": 3
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of popular drinks per category",
@@ -558,15 +570,8 @@
                         "IBA": "Sorry, not specified",
                         "alcoholic": "Alcoholic",
                         "glass": "Highball Glass",
-                        "description": "Citrus Coke is a refreshing and tangy twist on the classic Coke that adds a burst of citrus flavors. This zesty drink combines the beloved Coca-Cola with a mix of citrus juices, such as orange, lemon, and lime. The result is a vibrant and invigorating beverage that enhances the refreshing qualities of the classic Coke with a tangy citrus kick. Sip on a Citrus Coke and enjoy a citrus-infused twist on a timeless favorite.",
+                        "description": "Citrus Coke is a refreshing and tangy twist on the classic Coke that adds a burst of citrus flavors.",
                         "instructions": "Pour half of coke in a glass. Then add Bacardi and top it off with the remaining coke. Stir and drink up!",
-                        "instructionsES": "Vierta la mitad de la coca cola en un vaso. Luego agregue Bacardí y complete con la coca cola restante. ¡Revuelve y bebe!",
-                        "instructionsDE": "Die Hälfte der Cola in ein Glas gießen. Dann Bacardi hinzufügen und mit dem verbleibenden Cola auffüllen. Rühren und trinken!",
-                        "instructionsFR": "Verser la moitié du coca dans un verre. Ajoutez ensuite le Bacardi et complétez avec le reste de coca. Remuez et buvez !",
-                        "instructionsIT": "Versare metà della coca cola in un bicchiere.\r\nQuindi aggiungere il Bacardi e completare con la coca cola rimanente.\r\nMescola e bevi!",
-                        "instructionsRU": "Налейте половину колы в стакан. Затем добавьте Бакарди и добавьте оставшуюся колу. Перемешайте и выпейте!",
-                        "instructionsPL": "Wlej połowę koksu do szklanki. Następnie dodaj Bacardi i dopełnij pozostałą colą. Zamieszaj i wypij!",
-                        "instructionsUK": "Налийте половину кока-коли в склянку. Потім додайте «Бакарді» і додайте кока-колу, що залишилася. Перемішайте і випийте!",
                         "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Citrus_Coke.jpg",
                         "ingredients": [
                           {
