@@ -185,6 +185,9 @@ const addOwnDrink = async (req, res, next) => {
       ingredients,
     } = req.body;
 
+    // TODO: Remove this after the issue is fixed on the frontend side
+    const descriptionValue = description || shortDescription;
+
     const parsedIngredients = JSON.parse(ingredients);
 
     const newDrink = await Drink.create({
@@ -192,7 +195,7 @@ const addOwnDrink = async (req, res, next) => {
       category,
       glass,
       alcoholic,
-      description,
+      description: descriptionValue,
       shortDescription,
       instructions,
       drinkThumb,
