@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const { sendSubscriptionEmail } = require('../services/sendEmail');
 
 async function currentUser(req, res, next) {
   try {
@@ -64,6 +65,8 @@ async function subscribe(req, res, next) {
     });
 
     res.status(204).end();
+
+    await sendSubscriptionEmail(email);
   } catch (error) {
     next(error);
   }
