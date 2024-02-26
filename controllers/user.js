@@ -23,21 +23,26 @@ async function currentUser(req, res, next) {
 async function updateUser(req, res, next) {
   try {
     const userID = req.user.id;
-    const avatarURL = req.file.path;
     const { name } = req.body;
+    const updatedInfo = { name };
 
-    const user = await User.findByIdAndUpdate(
+    if (req.file) {
+      updatedInfo.avatarURL = req.file.path;
+    }
+
+    const { email, avatarURL, dateOfBirth } = await User.findByIdAndUpdate(
       userID,
-      { name, avatarURL },
+      updatedInfo,
       {
         new: true,
       }
     );
+
     return res.send({
-      name: user.name,
-      email: user.email,
-      avatarURL: user.avatarURL,
-      dateOfBirth: user.dateOfBirth,
+      name,
+      email,
+      avatarURL,
+      dateOfBirth,
     });
   } catch (error) {
     next(error);
