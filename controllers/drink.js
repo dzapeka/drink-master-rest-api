@@ -100,6 +100,8 @@ const search = async (req, res, next) => {
 const getDrinkById = async (req, res, next) => {
   try {
     const drinkId = req.params.id;
+    const userId = req.user.id;
+    console.log('USER_ID: ', userId);
 
     if (!mongoose.Types.ObjectId.isValid(drinkId)) {
       return res
@@ -107,13 +109,17 @@ const getDrinkById = async (req, res, next) => {
         .json({ message: 'Incorrectly entered data. Cocktail id is expected' });
     }
 
-    const drinkData = await Drink.findOne({ _id: drinkId }, { favoritedBy: 0 })
+    const drinkData = await Drink.findOne({ _id: drinkId })
       .populate('ingredients.ingredientId')
       .lean();
 
     if (drinkData === null) {
       return res.status(404).json({ message: 'Drink not found' });
     }
+
+    drinkData.isFavoriteByUser = drinkData.favoritedBy
+      .map(id => id.toString())
+      .includes(userId);
 
     const modifiedIngredients = drinkData.ingredients.map(ingredient => ({
       _id: ingredient._id,
