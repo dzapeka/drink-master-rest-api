@@ -285,6 +285,7 @@ const removeFromOwnDrinks = async (req, res, next) => {
 
     return res.status(200).json({
       message: 'The cocktail was successfully removed',
+      drinkId,
     });
   } catch (error) {
     console.log(error);

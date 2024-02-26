@@ -116,6 +116,7 @@ const removeFromFavorite = async (req, res, next) => {
 
     return res.status(200).json({
       message: 'The cocktail was successfully removed',
+      drinkId,
     });
   } catch (error) {
     next(error);
