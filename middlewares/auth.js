@@ -26,10 +26,6 @@ function auth(req, res, next) {
       return res.status(401).send({ message: 'Not authorized' });
     }
 
-    if (user.token !== token) {
-      return res.status(401).send({ message: 'Not authorized' });
-    }
-
     req.user = {
       id: decode.id,
     };
