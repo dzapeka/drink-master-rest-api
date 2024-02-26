@@ -237,11 +237,6 @@ const getOwnDrinks = async (req, res, next) => {
       .skip((page - 1) * size)
       .limit(Number(size));
 
-    if (ownDrinks === null || ownDrinks.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "You don't have any own drinks yet" });
-    }
     const total = await Drink.countDocuments(filter);
     return res.status(200).json({
       total,
