@@ -15,12 +15,6 @@ const getFavoriteDrinks = async (req, res, next) => {
       .skip((page - 1) * size)
       .limit(Number(size));
 
-    if (favoriteDrinks === null || favoriteDrinks.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "You don't have any favorite cocktails yet" });
-    }
-
     const total = await Drink.countDocuments(filter);
 
     return res.json({
