@@ -60,7 +60,7 @@ async function subscribe(req, res, next) {
     }
 
     if (user.subscriptionEmails.includes(email)) {
-      return res.status(400).json({
+      return res.status(409).json({
         message: 'Email is already subscribed',
       });
     }
