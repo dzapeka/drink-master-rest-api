@@ -17,7 +17,7 @@ const userSubscribeSchema = Joi.object({
 });
 
 const userUpdateSchema = Joi.object({
-  name: Joi.string().trim(),
+  name: Joi.string().trim().required(),
 });
 
 module.exports = {
